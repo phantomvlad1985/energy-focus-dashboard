@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>European Natural Gas Monitor — Energy Focus 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a1628; --surf:#111d33; --surf2:#162544; --surf3:#1a2d52;
+  --border:#1e3a5f; --border2:#2a4a72;
+  --text:#e0eaf6; --muted:#7a9cc0; --faint:#4a6e94;
+  --blue:#3b8beb; --blue2:#5ba0f0; --blue3:#152a48;
+  --teal:#2dd4a8; --teal3:#0f2a28;
+  --amber:#f0a840; --amber3:#2a2010;
+  --red:#f05050; --red3:#2a1010;
+  --green:#40d870; --green3:#102a18;
+  --head:'Syne',sans-serif; --body:'DM Sans',sans-serif; --mono:'DM Mono',monospace;
+  --radius:10px; --shadow:0 2px 16px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13px;min-height:100vh;line-height:1.5}
+
+.nav{background:var(--surf);border-bottom:2px solid var(--blue);box-shadow:var(--shadow);position:sticky;top:0;z-index:200}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:58px;gap:16px}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-back{font-family:var(--mono);font-size:9px;color:var(--muted);text-decoration:none;padding:3px 8px;border:1px solid var(--border);border-radius:4px;transition:background .15s}
+.nav-back:hover{background:var(--surf3)}
+.nav-logo{font-family:var(--head);font-size:22px;font-weight:800;color:var(--text);letter-spacing:-.02em}
+.nav-logo span{color:var(--blue)}
+.nav-tag{font-family:var(--mono);font-size:8px;background:var(--blue3);color:var(--blue);border:1px solid var(--border2);padding:2px 8px;border-radius:4px;letter-spacing:.08em}
+.nav-meta{font-family:var(--mono);font-size:9px;color:var(--muted);text-align:right;line-height:1.7}
+.nav-meta strong{color:var(--amber)}
+
+.crisis{background:linear-gradient(90deg,#0d1e38,#111d33,#0d1e38);border-bottom:1px solid var(--border);padding:8px 28px}
+.crisis-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.crisis-pulse{width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.4s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.7)}}
+.crisis-text{font-family:var(--mono);font-size:10px;color:var(--muted);flex:1}
+.crisis-text strong{color:var(--amber)}
+.crisis-badge{font-family:var(--mono);font-size:8px;background:var(--red);color:#fff;padding:3px 10px;border-radius:3px;white-space:nowrap;letter-spacing:.1em}
+
+.kpi-bar{background:var(--surf);border-bottom:1px solid var(--border);padding:10px 28px}
+.kpi-bar-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.kpi-chip{display:flex;align-items:center;gap:8px;background:var(--surf2);border:1px solid var(--border);border-radius:24px;padding:5px 14px;transition:border-color .2s}
+.kpi-chip:hover{border-color:var(--border2)}
+.kpi-lbl{font-family:var(--mono);font-size:8px;color:var(--faint);letter-spacing:.08em;text-transform:uppercase}
+.kpi-val{font-family:var(--head);font-size:17px;font-weight:700;line-height:1;color:var(--text)}
+.kpi-chg{font-family:var(--mono);font-size:9px}
+.up{color:var(--red)}.dn{color:var(--green)}.nt{color:var(--muted)}.tc{color:var(--teal)}
+.kpi-live{margin-left:auto;display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9px;color:var(--muted)}
+.kpi-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+
+.tab-row{background:var(--surf);border-bottom:1px solid var(--border);padding:0 28px;display:flex;overflow-x:auto}
+.tab-btn{font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:14px 16px;cursor:pointer;border:none;background:transparent;color:var(--faint);border-bottom:3px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;white-space:nowrap}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+
+.wrap{max-width:1400px;margin:0 auto;padding:28px 28px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.mb{margin-bottom:18px}
+
+.section-label{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.panel{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.panel-hd{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.panel-title{font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text)}
+.panel-sub{font-family:var(--mono);font-size:8px;color:var(--faint)}
+.panel-body{padding:18px}
+
+.dt{width:100%;border-collapse:collapse}
+.dt th{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:8px 10px;border-bottom:2px solid var(--border);text-align:left;white-space:nowrap;background:var(--surf2)}
+.dt td{padding:8px 10px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:middle}
+.dt tr:last-child td{border-bottom:none}.dt tr:hover td{background:var(--surf2)}
+.num{font-family:var(--mono);font-size:10px;text-align:right}
+.cname{font-family:var(--head);font-size:13px;font-weight:700;color:var(--text)}
+.rbadge{font-family:var(--mono);font-size:7px;padding:2px 6px;border-radius:3px;margin-left:6px;vertical-align:middle;letter-spacing:.05em}
+.rb-w{background:var(--blue3);color:var(--blue);border:1px solid var(--border2)}
+.rb-c{background:#1a2040;color:#8888ee;border:1px solid #3a3a80}
+.rb-s{background:var(--teal3);color:var(--teal);border:1px solid #1a4a40}
+.rb-n{background:#1a2a20;color:#60cc88;border:1px solid #2a5a3a}
+.rb-e{background:#2a2010;color:var(--amber);border:1px solid #5a4a20}
+.bw{display:flex;align-items:center;gap:6px;min-width:100px}
+.btrack{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.bfill{height:100%;border-radius:3px}
+.blbl{font-family:var(--mono);font-size:9px;min-width:34px;text-align:right}
+.vb{font-family:var(--head);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap}
+.vH{background:var(--red3);color:var(--red);border:1px solid #5a2020}
+.vMH{background:var(--amber3);color:var(--amber);border:1px solid #5a4a20}
+.vM{background:var(--blue3);color:var(--blue);border:1px solid var(--border2)}
+.vL{background:var(--green3);color:var(--green);border:1px solid #2a5a3a}
+
+.route-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)}
+.route-row:last-child{border-bottom:none}
+.rdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.rname{font-family:var(--head);font-size:12px;font-weight:700;color:var(--text)}
+.rnote{font-size:10px;color:var(--muted);margin-top:1px}
+.rstatus{font-family:var(--mono);font-size:8px;padding:2px 8px;border-radius:3px;white-space:nowrap;flex-shrink:0;border:1px solid;letter-spacing:.06em}
+
+.ss-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.ss-lbl{font-family:var(--head);font-size:10px;font-weight:600;color:var(--text);width:96px;flex-shrink:0;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ss-bar{flex:1;height:14px;background:var(--border);border-radius:3px;overflow:hidden;display:flex}
+.ss-seg{height:100%}
+.ss-tot{font-family:var(--mono);font-size:8px;color:var(--muted);width:52px;text-align:right}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.li{display:flex;align-items:center;gap:5px}
+.ld{width:10px;height:7px;border-radius:2px}
+.lt{font-family:var(--mono);font-size:8px;color:var(--muted)}
+
+.gauge-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.gauge-item{text-align:center}
+.gauge-name{font-family:var(--head);font-size:10px;font-weight:700;color:var(--text);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gauge-status{font-family:var(--mono);font-size:8px;margin-top:2px}
+
+.infra-row{display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)}
+.infra-row:last-child{border-bottom:none}
+.infra-icon{font-size:16px;flex-shrink:0;width:24px;text-align:center;margin-top:1px}
+.infra-name{font-family:var(--head);font-size:12px;font-weight:700;color:var(--text)}
+.infra-note{font-size:10px;color:var(--muted);margin-top:1px}
+.infra-cap{font-family:var(--mono);font-size:9px;color:var(--blue);white-space:nowrap;flex-shrink:0;margin-top:2px}
+
+.sc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sc-card{background:var(--surf2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;position:relative;overflow:hidden}
+.sc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.sc1::before{background:var(--green)}.sc2::before{background:var(--teal)}
+.sc3::before{background:var(--amber)}.sc4::before{background:var(--red)}
+.sc-label{font-family:var(--mono);font-size:8px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+.sc1 .sc-label{color:var(--green)}.sc2 .sc-label{color:var(--teal)}
+.sc3 .sc-label{color:var(--amber)}.sc4 .sc-label{color:var(--red)}
+.sc-title{font-family:var(--head);font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
+.sc-sub{font-family:var(--mono);font-size:8px;color:var(--muted);margin-bottom:10px}
+.sc-prob{font-family:var(--mono);font-size:8px;padding:2px 8px;border-radius:10px;margin-bottom:10px;display:inline-block;border:1px solid}
+.sc1 .sc-prob{background:var(--green3);color:var(--green);border-color:#2a5a3a}
+.sc2 .sc-prob{background:var(--teal3);color:var(--teal);border-color:#1a4a40}
+.sc3 .sc-prob{background:var(--amber3);color:var(--amber);border-color:#5a4a20}
+.sc4 .sc-prob{background:var(--red3);color:var(--red);border-color:#5a2020}
+.sc-row{display:flex;justify-content:space-between;align-items:flex-start;padding:4px 0;border-bottom:1px solid var(--border);gap:8px}
+.sc-row:last-child{border-bottom:none}
+.sc-k{font-size:10px;color:var(--muted)}.sc-v{font-family:var(--mono);font-size:10px;color:var(--text);text-align:right;flex-shrink:0}
+
+.impact-row td{font-size:11px;padding:7px 10px}
+.f-g{color:var(--green)}.f-a{color:var(--amber)}.f-r{color:var(--red)}
+
+.brief-card{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow)}
+.brief-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;gap:12px;flex-wrap:wrap}
+.brief-title-row{display:flex;align-items:center;gap:10px}
+.brief-title{font-family:var(--head);font-size:16px;font-weight:700;color:var(--text)}
+.brief-slot-badge{font-family:var(--mono);font-size:8px;padding:2px 8px;border-radius:3px;background:var(--blue3);color:var(--blue);border:1px solid var(--border2)}
+.brief-controls{display:flex;align-items:center;gap:10px}
+.brief-ts{font-family:var(--mono);font-size:9px;color:var(--faint)}
+.btn{font-family:var(--head);font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border:none;border-radius:5px;padding:7px 16px;cursor:pointer;transition:opacity .15s}
+.btn:hover{opacity:.85}.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-primary{background:var(--blue);color:#fff}
+.brief-body{font-size:13px;line-height:1.75;color:var(--text)}
+.brief-body h3{font-family:var(--head);font-size:11px;font-weight:700;color:var(--blue);margin:14px 0 4px;text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--border);padding-bottom:3px}
+.brief-body p{margin-bottom:8px}.brief-body strong{font-weight:600}
+.brief-footer{font-family:var(--mono);font-size:9px;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.loading{display:flex;align-items:center;gap:10px;padding:20px 0;color:var(--muted);font-family:var(--mono);font-size:11px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--blue);animation:ld .8s ease-in-out infinite}
+.dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}
+@keyframes ld{0%,100%{opacity:.2;transform:scale(.75)}50%{opacity:1;transform:scale(1)}}
+.sched-note{background:var(--blue3);border:1px solid var(--border2);border-radius:8px;padding:12px 16px;font-family:var(--mono);font-size:9px;color:var(--muted);margin-bottom:16px;line-height:1.6}
+
+/* Region filter */
+.filter-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.filter-btn{font-family:var(--mono);font-size:9px;padding:4px 12px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.filter-btn:hover{border-color:var(--blue);color:var(--text)}
+.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* ─── FLOWS MAP ─────────────────────────────────────────── */
+.flows-container{position:relative;width:100%;background:var(--surf2);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.flows-map-wrap{position:relative;width:100%;min-height:620px;overflow:hidden}
+.flows-map-wrap svg{width:100%;height:100%}
+.flows-map-wrap svg .country-shape{fill:var(--surf3);stroke:var(--border2);stroke-width:.5;transition:fill .2s}
+.flows-map-wrap svg .country-shape:hover{fill:var(--border2)}
+.flows-map-wrap svg .country-shape.highlighted{fill:var(--blue3)}
+.flows-map-wrap svg .country-label{font-family:var(--mono);font-size:7px;fill:var(--muted);pointer-events:none;text-anchor:middle}
+.flows-map-wrap svg .flow-arrow{stroke-linecap:round;opacity:.85;transition:opacity .2s}
+.flows-map-wrap svg .flow-arrow:hover{opacity:1}
+.flows-map-wrap svg .flow-label{font-family:var(--mono);font-size:7px;fill:var(--text);pointer-events:none}
+.flow-legend{display:flex;flex-wrap:wrap;gap:12px;padding:14px 18px;border-top:1px solid var(--border);background:var(--surf)}
+.flow-legend-item{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9px;color:var(--muted)}
+.flow-legend-swatch{width:24px;height:4px;border-radius:2px}
+.flow-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;padding:14px 18px;border-top:1px solid var(--border);background:var(--surf)}
+.flow-stat{background:var(--surf2);border:1px solid var(--border);border-radius:6px;padding:10px 14px}
+.flow-stat-label{font-family:var(--mono);font-size:8px;color:var(--faint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.flow-stat-value{font-family:var(--head);font-size:16px;font-weight:700;color:var(--text)}
+.flow-stat-sub{font-family:var(--mono);font-size:8px;color:var(--muted);margin-top:1px}
+.flow-controls{display:flex;align-items:center;gap:10px;padding:10px 18px;background:var(--surf);border-bottom:1px solid var(--border)}
+.flow-controls label{font-family:var(--mono);font-size:9px;color:var(--muted)}
+.flow-controls select{font-family:var(--mono);font-size:10px;background:var(--surf2);color:var(--text);border:1px solid var(--border);border-radius:4px;padding:4px 8px}
+.flow-controls .flow-date{font-family:var(--mono);font-size:10px;color:var(--blue)}
+.flow-status{font-family:var(--mono);font-size:9px;padding:3px 10px;border-radius:10px;margin-left:auto}
+.flow-status.live{color:var(--green);background:var(--green3);border:1px solid #2a5a3a}
+.flow-status.loading{color:var(--amber);background:var(--amber3);border:1px solid #5a4a20}
+.flow-status.fallback{color:var(--muted);background:var(--surf2);border:1px solid var(--border)}
+.flow-tooltip{position:absolute;background:var(--surf);border:1px solid var(--border2);border-radius:6px;padding:10px 14px;box-shadow:0 4px 20px rgba(0,0,0,.4);pointer-events:none;z-index:100;display:none;min-width:180px}
+.flow-tooltip .tt-route{font-family:var(--head);font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px}
+.flow-tooltip .tt-val{font-family:var(--mono);font-size:11px;color:var(--blue)}
+.flow-tooltip .tt-note{font-family:var(--mono);font-size:8px;color:var(--muted);margin-top:3px}
+
+canvas{width:100%;display:block}.tscroll{overflow-x:auto}
+footer{background:var(--surf);border-top:1px solid var(--border);padding:14px 28px;margin-top:12px}
+.footer-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fn{font-family:var(--mono);font-size:8px;color:var(--faint);max-width:900px;line-height:1.6}
+.fr{font-family:var(--mono);font-size:8px;color:var(--faint)}
+@media(max-width:1000px){.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr}.sc-grid{grid-template-columns:1fr 1fr}.gauge-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:540px){.sc-grid{grid-template-columns:1fr}.gauge-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <a href="#" class="nav-back">← Portal</a>
+      <div class="nav-logo">Energy<span>Focus</span></div>
+      <div class="nav-tag">🔥 GAS MONITOR — ALL EUROPE</div>
+    </div>
+    <div class="nav-meta"><span id="clock">—</span><br>Auto-brief at <strong>10:00</strong> &amp; <strong>16:00</strong> CET daily</div>
+  </div>
+</nav>
+
+<div class="crisis">
+  <div class="crisis-inner">
+    <div class="crisis-pulse"></div>
+    <div class="crisis-text">
+      <strong>ACTIVE CRISIS — US / Israel × Iran War (Feb 28, 2026):</strong>
+      TTF €52.00/MWh (+67.74%) · EU storage 29.00% (5-yr low) · Qatar LNG force majeure · Hormuz closed · Multiple European states at risk
+    </div>
+    <div class="crisis-badge">GAS CRISIS</div>
+  </div>
+</div>
+
+<div class="kpi-bar">
+  <div class="kpi-bar-inner">
+    <div class="kpi-chip"><span class="kpi-lbl">TTF Spot</span><span class="kpi-val up" id="kv-ttf">€52.00</span><span class="kpi-chg up">▲ +67.74%</span></div>
+    <div class="kpi-chip"><span class="kpi-lbl">EU Storage</span><span class="kpi-val up" id="kv-stor">29.00%</span><span class="kpi-chg up">5-yr low</span></div>
+    <div class="kpi-chip"><span class="kpi-lbl">Qatar LNG</span><span class="kpi-val up" style="font-size:13px">OFFLINE</span><span class="kpi-chg up">force majeure</span></div>
+    <div class="kpi-chip"><span class="kpi-lbl">NBP (UK)</span><span class="kpi-val up">£48.50</span><span class="kpi-chg up">▲ +55.20%</span></div>
+    <div class="kpi-chip"><span class="kpi-lbl">GS Warn. Level</span><span class="kpi-val" style="color:var(--amber)">€74.00</span><span class="kpi-chg nt">/MWh</span></div>
+    <div class="kpi-chip"><span class="kpi-lbl">Brent Crude</span><span class="kpi-val up" id="kv-brent">$101.00</span><span class="kpi-chg up">▲ +44.29%</span></div>
+    <div class="kpi-live"><div class="kpi-live-dot"></div><span id="kpi-updated">Updated: —</span></div>
+  </div>
+</div>
+
+<div class="tab-row">
+  <button class="tab-btn active" onclick="showTab('overview',this)">Country Overview</button>
+  <button class="tab-btn" onclick="showTab('supply',this)">Supply &amp; Routes</button>
+  <button class="tab-btn" onclick="showTab('sdyn',this)">Supply / Demand</button>
+  <button class="tab-btn" onclick="showTab('storage',this)">Storage &amp; Infra</button>
+  <button class="tab-btn" onclick="showTab('scenarios',this)">Scenarios</button>
+  <button class="tab-btn" onclick="showTab('flows',this)">🗺 Flows</button>
+  <button class="tab-btn" onclick="showTab('brief',this)">📋 Daily Brief</button>
+</div>
+
+<div class="wrap">
+
+<!-- OVERVIEW -->
+<div class="tab-panel active" id="tab-overview">
+  <p class="section-label">Country Gas Profiles — All European Countries</p>
+  <div class="filter-row" id="regionFilter"></div>
+  <div class="panel mb">
+    <div class="panel-hd">
+      <span class="panel-title">Production · Consumption · Russian Gas % · LNG Access · Vulnerability</span>
+      <span class="panel-sub">bcm/yr = billion cubic metres per year</span>
+    </div>
+    <div class="tscroll">
+      <table class="dt" style="min-width:1020px">
+        <thead><tr><th>Country</th><th class="num">Prod.(bcm)</th><th class="num">Cons.(bcm)</th><th style="min-width:110px">Self-Sufficiency</th><th style="min-width:110px">Russian Gas %</th><th>LNG Access</th><th>Storage</th><th>Vulnerability</th></tr></thead>
+        <tbody id="ctbody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="panel"><div class="panel-hd"><span class="panel-title">Production vs Consumption (Top 20)</span><span class="panel-sub">bcm/yr</span></div><div class="panel-body"><canvas id="pcChart" height="280"></canvas></div></div>
+    <div class="panel"><div class="panel-hd"><span class="panel-title">Russian Gas Dependency</span><span class="panel-sub">% of national supply from Russia</span></div><div class="panel-body"><canvas id="rusChart" height="280"></canvas></div></div>
+  </div>
+</div>
+
+<!-- SUPPLY -->
+<div class="tab-panel" id="tab-supply">
+  <p class="section-label">Supply Origins &amp; Route Status</p>
+  <div class="g2 mb">
+    <div class="panel"><div class="panel-hd"><span class="panel-title">Europe Combined Gas Supply Mix 2025</span><span class="panel-sub">% baseline by origin</span></div><div class="panel-body"><canvas id="donutChart" height="290"></canvas></div></div>
+    <div class="panel"><div class="panel-hd"><span class="panel-title">Pipeline &amp; LNG Route Status</span><span class="panel-sub">March 23, 2026</span></div><div class="panel-body" id="routeList"></div></div>
+  </div>
+  <div class="panel"><div class="panel-hd"><span class="panel-title">Supply Stack by Country</span><span class="panel-sub">% portfolio breakdown per country</span></div><div class="panel-body"><div class="legend" id="ssLegend"></div><div id="ssStack" style="max-height:620px;overflow-y:auto"></div></div></div>
+</div>
+
+<!-- S/D -->
+<div class="tab-panel" id="tab-sdyn">
+  <p class="section-label">Price Timeline &amp; Supply Gap Analysis</p>
+  <div class="g2 mb">
+    <div class="panel"><div class="panel-hd"><span class="panel-title">TTF Natural Gas Price Timeline</span><span class="panel-sub">€/MWh · Feb 24 – Mar 23, 2026</span></div><div class="panel-body"><canvas id="ttfChart" height="220"></canvas></div></div>
+    <div class="panel"><div class="panel-hd"><span class="panel-title">LNG Supply Gap Waterfall</span><span class="panel-sub">bcm/month — Qatar loss vs offsets vs net gap</span></div><div class="panel-body"><canvas id="gapChart" height="220"></canvas></div></div>
+  </div>
+  <div class="panel"><div class="panel-hd"><span class="panel-title">Country Cost Shock — Monthly Gas Import Bill (Top 20 importers)</span><span class="panel-sub">Pre-war €31.00/MWh vs current €52.00/MWh · +67.74% price shock</span></div>
+    <div class="tscroll"><table class="dt" style="min-width:900px"><thead><tr><th>Country</th><th>Net Import (bcm/yr)</th><th>Pre-War /mo</th><th>Current /mo</th><th>Extra Bill</th><th>Shock</th><th>Risk Flag</th></tr></thead><tbody id="costBody"></tbody></table></div>
+  </div>
+</div>
+
+<!-- STORAGE -->
+<div class="tab-panel" id="tab-storage">
+  <p class="section-label">Storage Levels &amp; Strategic Infrastructure</p>
+  <div class="g2 mb">
+    <div class="panel"><div class="panel-hd"><span class="panel-title">Gas Storage Levels</span><span class="panel-sub">% working gas volume — March 23, 2026</span></div><div class="panel-body"><div class="gauge-grid" id="gaugeGrid"></div></div></div>
+    <div class="panel"><div class="panel-hd"><span class="panel-title">Storage Trajectory</span><span class="panel-sub">EU avg fill — 5yr avg · 2025 · 2026 actual · crisis projections</span></div><div class="panel-body"><canvas id="storChart" height="270"></canvas></div></div>
+  </div>
+  <div class="g2">
+    <div class="panel"><div class="panel-hd"><span class="panel-title">Key LNG &amp; Pipeline Infrastructure</span><span class="panel-sub">Major European terminals &amp; corridors</span></div><div class="panel-body" id="infraList"></div></div>
+    <div class="panel"><div class="panel-hd"><span class="panel-title">Summer 2026 Refill Feasibility</span><span class="panel-sub">EU 90% Dec target vs crisis-scenario achievable level</span></div><div class="panel-body"><canvas id="refillChart" height="270"></canvas></div></div>
+  </div>
+</div>
+
+<!-- SCENARIOS -->
+<div class="tab-panel" id="tab-scenarios">
+  <p class="section-label">Four-Scenario Framework — Hormuz Disruption × European Gas</p>
+  <div class="panel mb"><div class="panel-hd"><span class="panel-title">Scenarios — Goldman Sachs · HSBC · Oxford Economics · IEA · Ember</span><span class="panel-sub">March 2026 consensus</span></div><div class="panel-body"><div class="sc-grid" id="scCards"></div></div></div>
+  <div class="g2 mb">
+    <div class="panel"><div class="panel-hd"><span class="panel-title">TTF Forecast by Scenario</span><span class="panel-sub">€/MWh · Q2–Q4 2026</span></div><div class="panel-body"><canvas id="scTTF" height="230"></canvas></div></div>
+    <div class="panel"><div class="panel-hd"><span class="panel-title">EU Storage End-State by Scenario</span><span class="panel-sub">% December 2026 · 90.00% EU regulatory target</span></div><div class="panel-body"><canvas id="scStor" height="230"></canvas></div></div>
+  </div>
+  <div class="panel"><div class="panel-hd"><span class="panel-title">Country Impact Matrix (Key Countries)</span><span class="panel-sub">All 4 scenarios</span></div>
+    <div class="tscroll"><table class="dt" style="min-width:1080px"><thead><tr><th>Country</th><th>Sc.1 — Quick (≤4wk)</th><th>Sc.2 — Extended (8wk)</th><th>Sc.3 — Prolonged (4mo)</th><th>Sc.4 — Severe (6mo+)</th><th>Key Risk Factor</th></tr></thead><tbody id="impactBody"></tbody></table></div>
+  </div>
+</div>
+
+<!-- FLOWS -->
+<div class="tab-panel" id="tab-flows">
+  <p class="section-label">Cross-Border Natural Gas Physical Flows — ENTSOG Transparency Platform</p>
+  <div class="flows-container mb">
+    <div class="flow-controls">
+      <label>Date:</label>
+      <span class="flow-date" id="flowDate">—</span>
+      <label style="margin-left:12px">Min flow:</label>
+      <select id="flowMinFilter" onchange="renderFlowMap()">
+        <option value="0">Show all</option>
+        <option value="10" selected>≥ 10 GWh/d</option>
+        <option value="50">≥ 50 GWh/d</option>
+        <option value="100">≥ 100 GWh/d</option>
+        <option value="500">≥ 500 GWh/d</option>
+      </select>
+      <button class="btn btn-primary" style="margin-left:8px" onclick="fetchENTSOGFlows()">↻ Refresh</button>
+      <span class="flow-status fallback" id="flowStatus">Initializing…</span>
+    </div>
+    <div class="panel-hd">
+      <span class="panel-title">European Gas Flow Map</span>
+      <span class="panel-sub">GWh/day · Physical flows at cross-border interconnection points</span>
+    </div>
+    <div class="flows-map-wrap" id="flowMapWrap"></div>
+    <div class="flow-legend" id="flowLegend"></div>
+    <div class="flow-tooltip" id="flowTooltip">
+      <div class="tt-route"></div>
+      <div class="tt-val"></div>
+      <div class="tt-note"></div>
+    </div>
+  </div>
+  <div class="flow-stats" id="flowStats"></div>
+  <div class="g2 mb" style="margin-top:18px">
+    <div class="panel">
+      <div class="panel-hd"><span class="panel-title">Top 20 Cross-Border Flows</span><span class="panel-sub">GWh/day — ranked by volume</span></div>
+      <div class="tscroll"><table class="dt"><thead><tr><th>From</th><th>To</th><th>Point Name</th><th class="num">Flow (GWh/d)</th><th style="min-width:120px">Utilization</th></tr></thead><tbody id="flowTableBody"></tbody></table></div>
+    </div>
+    <div class="panel">
+      <div class="panel-hd"><span class="panel-title">Net Flow by Country</span><span class="panel-sub">GWh/day — positive = net exporter, negative = net importer</span></div>
+      <div class="panel-body"><canvas id="netFlowChart" height="320"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- BRIEF -->
+<div class="tab-panel" id="tab-brief">
+  <div class="sched-note">⏰ <strong>Auto-update schedule:</strong> Briefs generated at <strong>10:00 CET</strong> (pre-market open) and <strong>16:00 CET</strong> (post-market close). Click <strong>Refresh Now</strong> for immediate on-demand generation. All prices quoted to 2 decimal places.</div>
+  <div class="brief-card">
+    <div class="brief-header">
+      <div>
+        <div class="brief-title-row">
+          <div class="brief-title">🔥 European Natural Gas — Daily Intelligence Brief</div>
+          <div class="brief-slot-badge" id="slot-badge">—</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--faint);margin-top:4px" id="brief-ts-label">Checking schedule…</div>
+      </div>
+      <div class="brief-controls">
+        <span class="brief-ts" id="brief-ts-str"></span>
+        <button class="btn btn-primary" id="refresh-btn" onclick="manualRefresh()">↻ Refresh Now</button>
+      </div>
+    </div>
+    <div id="brief-content"><div class="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div>Loading latest market data…</div></div>
+    <div class="brief-footer" id="brief-footer"></div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="footer-inner">
+    <div class="fn">Goldman Sachs (Mar 3 2026) · HSBC (Mar 16) · Oxford Economics (Mar 3) · Atlantic Council (Mar 17) · Bruegel (Mar 2026) · Ember (Mar 18) · IEA Q1 2026 · ENTSOG Winter Outlook 2025 · GIE AGSI+ · Eurostat Energy Balances 2025</div>
+    <div class="fr">Energy Focus · energy-focus.org · March 2026</div>
+  </div>
+</footer>
+
+<script>
+const DASH_ID='eu_gas',CET=1*3600000;
+/* API base URL — set to '' for same-origin (production) or full URL for dev */
+const API_BASE=window.location.hostname==='localhost'?'http://localhost:8000':'';
+
+/* ─── ALL EUROPEAN COUNTRIES ─── */
+const C=[
+  // WESTERN
+  {n:'Germany',      r:'W',prod:4.8, cons:78.0, stor:28,rus:12,lng:'Lubmin, Wilhelmshaven, Brunsbüttel FSRUs',vuln:'MH'},
+  {n:'France',       r:'W',prod:0.1, cons:38.0, stor:30,rus:8, lng:'Dunkerque, Montoir, Fos-sur-Mer',vuln:'M'},
+  {n:'Netherlands',  r:'W',prod:6.5, cons:34.0, stor:32,rus:5, lng:'Gate Terminal Rotterdam',vuln:'M'},
+  {n:'Belgium',      r:'W',prod:0.0, cons:16.0, stor:10,rus:3, lng:'Zeebrugge LNG terminal',vuln:'M'},
+  {n:'UK',           r:'W',prod:32.0,cons:68.0, stor:8, rus:0, lng:'Isle of Grain, Milford Haven, South Hook',vuln:'M'},
+  {n:'Ireland',      r:'W',prod:2.5, cons:5.2,  stor:0, rus:0, lng:'Moffat interconnector (UK)',vuln:'M'},
+  {n:'Luxembourg',   r:'W',prod:0.0, cons:0.8,  stor:0, rus:2, lng:'Via Belgium pipeline',vuln:'L'},
+  // NORTHERN
+  {n:'Norway',       r:'N',prod:122.0,cons:4.8, stor:0, rus:0, lng:'Hammerfest LNG + major pipeline exporter',vuln:'L'},
+  {n:'Denmark',      r:'N',prod:2.8, cons:2.6,  stor:12,rus:0, lng:'Net exporter · Tyra field revival',vuln:'L'},
+  {n:'Sweden',       r:'N',prod:0.0, cons:1.2,  stor:0, rus:0, lng:'Nynäshamn, Lysekil small-scale LNG',vuln:'L'},
+  {n:'Finland',      r:'N',prod:0.0, cons:2.0,  stor:0, rus:0, lng:'Inkoo FSRU · Balticconnector',vuln:'M'},
+  {n:'Estonia',      r:'N',prod:0.0, cons:0.5,  stor:0, rus:0, lng:'Paldiski FSRU · Balticconnector',vuln:'M'},
+  {n:'Latvia',       r:'N',prod:0.0, cons:1.2,  stor:22,rus:0, lng:'Inčukalns UGS (regional hub)',vuln:'M'},
+  {n:'Lithuania',    r:'N',prod:0.0, cons:2.0,  stor:0, rus:0, lng:'Klaipėda FSRU Independence',vuln:'M'},
+  // CENTRAL
+  {n:'Poland',       r:'C',prod:4.5, cons:17.0, stor:29,rus:0, lng:'Świnoujście 6.20 bcm + Baltic Pipe',vuln:'M'},
+  {n:'Czech Rep.',   r:'C',prod:0.1, cons:8.5,  stor:31,rus:20,lng:'Via Germany · MIRO storage hub',vuln:'MH'},
+  {n:'Austria',      r:'C',prod:0.8, cons:8.0,  stor:26,rus:30,lng:'Via German FSRUs (Lubmin/Wilh.)',vuln:'MH'},
+  {n:'Switzerland',  r:'C',prod:0.0, cons:3.2,  stor:0, rus:5, lng:'Via Germany / Italy pipeline',vuln:'M'},
+  {n:'Slovakia',     r:'C',prod:0.1, cons:4.8,  stor:28,rus:55,lng:'Transit hub · no import terminal',vuln:'H'},
+  {n:'Hungary',      r:'C',prod:1.5, cons:9.0,  stor:25,rus:65,lng:'Via Austria / Slovakia relay',vuln:'H'},
+  {n:'Slovenia',     r:'C',prod:0.0, cons:0.9,  stor:0, rus:10,lng:'Via Austria / Italy pipeline',vuln:'M'},
+  // EASTERN
+  {n:'Romania',      r:'E',prod:9.5, cons:11.0, stor:38,rus:15,lng:'SGC / Trans-Balkan / Alexandroupolis',vuln:'L'},
+  {n:'Bulgaria',     r:'E',prod:0.3, cons:3.0,  stor:24,rus:70,lng:'Alexandroupolis FSRU (new 2024)',vuln:'H'},
+  {n:'Serbia',       r:'E',prod:0.4, cons:2.8,  stor:0, rus:55,lng:'None — pipeline only',vuln:'H'},
+  {n:'Moldova',      r:'E',prod:0.0, cons:1.0,  stor:0, rus:100,lng:'None — Russian pipeline only',vuln:'H'},
+  {n:'Ukraine',      r:'E',prod:18.5,cons:25.0, stor:20,rus:0, lng:'Domestic + EU reverse flow',vuln:'H'},
+  // SOUTHERN
+  {n:'Italy',        r:'S',prod:3.0, cons:68.0, stor:22,rus:8, lng:'Panigaglia + 2 FSRUs + Algeria TAP',vuln:'MH'},
+  {n:'Spain',        r:'S',prod:0.1, cons:32.0, stor:34,rus:3, lng:'6 terminals (El Ferrol, Bilbao, Barcelona, Cartagena, Huelva, Sagunto)',vuln:'L'},
+  {n:'Portugal',     r:'S',prod:0.0, cons:5.5,  stor:7, rus:2, lng:'Sines LNG terminal',vuln:'M'},
+  {n:'Greece',       r:'S',prod:0.1, cons:5.2,  stor:5, rus:35,lng:'Revithoussa + Alexandroupolis FSRU',vuln:'MH'},
+  {n:'Turkey',       r:'S',prod:0.4, cons:52.0, stor:20,rus:33,lng:'4 LNG terminals + TurkStream + TANAP',vuln:'MH'},
+  {n:'Croatia',      r:'S',prod:1.0, cons:2.9,  stor:30,rus:30,lng:'Krk FSRU 2.90 bcm/yr',vuln:'MH'},
+  {n:'Albania',      r:'S',prod:0.1, cons:0.3,  stor:0, rus:0, lng:'TAP pipeline beneficiary',vuln:'L'},
+  {n:'North Macedonia',r:'S',prod:0.0,cons:0.3, stor:0, rus:0, lng:'Via Bulgaria · SGC feed',vuln:'MH'},
+  {n:'Bosnia & Herz.',r:'S',prod:0.0,cons:0.3,  stor:0, rus:60,lng:'None — pipeline via Serbia',vuln:'H'},
+  {n:'Montenegro',   r:'S',prod:0.0, cons:0.0,  stor:0, rus:0, lng:'No gas infrastructure',vuln:'L'},
+  {n:'Cyprus',       r:'S',prod:0.0, cons:0.3,  stor:0, rus:0, lng:'Aphrodite field (planned)',vuln:'MH'},
+  {n:'Malta',        r:'S',prod:0.0, cons:0.3,  stor:0, rus:0, lng:'Delimara FSRU',vuln:'M'},
+  {n:'Iceland',      r:'N',prod:0.0, cons:0.0,  stor:0, rus:0, lng:'Geothermal dominant · no gas grid',vuln:'L'},
+];
+
+const CSRC={
+  'Germany':     {norway:35,russia:12,domestic:6,lng_us:18,lng_other:14,netherlands:8,other:7},
+  'France':      {norway:36,russia:8,algeria:12,lng_us:14,lng_other:16,other:14},
+  'Netherlands': {domestic:19,norway:30,russia:5,lng_us:16,lng_other:18,other:12},
+  'Belgium':     {norway:30,russia:3,lng_us:22,lng_other:25,other:20},
+  'UK':          {domestic:47,norway:32,lng_us:8,lng_other:8,other:5},
+  'Ireland':     {domestic:48,norway:28,lng_other:10,other:14},
+  'Luxembourg':  {norway:40,russia:2,other:58},
+  'Norway':      {domestic:100},
+  'Denmark':     {domestic:100},
+  'Sweden':      {norway:50,lng_other:30,other:20},
+  'Finland':     {lng_us:25,lng_other:35,norway:20,other:20},
+  'Estonia':     {lng_other:40,norway:20,latvia:20,other:20},
+  'Latvia':      {lng_other:30,norway:25,domestic:5,other:40},
+  'Lithuania':   {lng_us:30,lng_other:25,norway:25,other:20},
+  'Poland':      {domestic:26,norway:40,lng_us:18,lng_other:8,other:8},
+  'Czech Rep.':  {russia:20,norway:45,lng_us:15,other:20},
+  'Austria':     {russia:30,norway:35,lng_us:10,algeria:8,other:17},
+  'Switzerland': {norway:35,russia:5,germany:40,other:20},
+  'Slovakia':    {russia:55,domestic:2,norway:28,other:15},
+  'Hungary':     {russia:65,domestic:17,norway:8,other:10},
+  'Slovenia':    {russia:10,algeria:25,norway:20,austria:30,other:15},
+  'Romania':     {domestic:88,russia:5,azerbaijan:5,other:2},
+  'Bulgaria':    {russia:70,azerbaijan:18,lng_other:7,other:5},
+  'Serbia':      {russia:55,domestic:14,azerbaijan:15,other:16},
+  'Moldova':     {russia:100},
+  'Ukraine':     {domestic:74,other:26},
+  'Italy':       {algeria:26,russia:8,azerbaijan:20,lng_us:14,lng_other:10,norway:10,other:12},
+  'Spain':       {algeria:22,lng_us:24,lng_other:28,nigeria:12,other:14},
+  'Portugal':    {algeria:18,lng_us:28,lng_other:32,nigeria:10,other:12},
+  'Greece':      {russia:35,azerbaijan:30,algeria:12,lng_other:15,other:8},
+  'Turkey':      {russia:33,azerbaijan:20,iran:8,algeria:6,lng_us:10,lng_other:12,other:11},
+  'Croatia':     {domestic:34,russia:30,lng_other:20,norway:8,other:8},
+  'Albania':     {azerbaijan:60,domestic:30,other:10},
+  'North Macedonia':{russia:0,azerbaijan:30,bulgaria:40,other:30},
+  'Bosnia & Herz.':{russia:60,other:40},
+  'Montenegro':  {other:100},
+  'Cyprus':      {other:100},
+  'Malta':       {lng_other:80,other:20},
+  'Iceland':     {other:100},
+};
+
+const SC_COLORS={domestic:'#3b8beb',norway:'#2dd4a8',russia:'#f05050',azerbaijan:'#a070f0',algeria:'#f0a840',lng_us:'#40d870',lng_other:'#40a8e0',nigeria:'#d0a030',netherlands:'#50b0a0',germany:'#6090c0',austria:'#7888b0',latvia:'#60a088',iran:'#d06050',bulgaria:'#b090d0',other:'#4a6e94'};
+const SN={domestic:'Domestic',norway:'Norway',russia:'Russia',azerbaijan:'Azerbaijan',algeria:'Algeria',lng_us:'US LNG',lng_other:'Other LNG',nigeria:'Nigeria',netherlands:'Netherlands',germany:'Germany',austria:'Austria',latvia:'Latvia',iran:'Iran',bulgaria:'Bulgaria',other:'Other'};
+const VN={H:'HIGH',MH:'MED-HIGH',M:'MEDIUM',L:'LOW'};
+const VC={H:'vH',MH:'vMH',M:'vM',L:'vL'};
+const RC={W:'rb-w',C:'rb-c',E:'rb-e',S:'rb-s',N:'rb-n'};
+const RL={W:'WESTERN',C:'CENTRAL',E:'EASTERN',S:'SOUTHERN',N:'NORTHERN'};
+
+let activeRegion='ALL';
+
+function f2(n){return parseFloat(n).toFixed(2)}
+function getCET(){const n=new Date(),e=new Date(n.getTime()+CET);return{hour:e.getUTCHours(),date:e.toISOString().slice(0,10),str:e.toISOString().slice(11,16)+' CET',full:e.toLocaleString('en-GB',{timeZone:'UTC',weekday:'short',day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})+' CET'}}
+function h2r(h,a=1){const r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16);return`rgba(${r},${g},${b},${a})`}
+function tick(){const e=getCET();const el=document.getElementById('clock');if(el)el.textContent=e.full}
+setInterval(tick,20000);tick();
+function filteredC(){return activeRegion==='ALL'?C:C.filter(c=>c.r===activeRegion)}
+
+function buildRegionFilter(){
+  const el=document.getElementById('regionFilter');if(!el)return;
+  const regions=[{k:'ALL',l:'All Europe'},{k:'W',l:'Western'},{k:'N',l:'Northern'},{k:'C',l:'Central'},{k:'E',l:'Eastern'},{k:'S',l:'Southern'}];
+  el.innerHTML=regions.map(r=>`<button class="filter-btn${r.k===activeRegion?' active':''}" onclick="setRegion('${r.k}',this)">${r.l}</button>`).join('');
+}
+function setRegion(r,btn){
+  activeRegion=r;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('ctbody').innerHTML='';
+  buildTable();buildPC();buildRus();
+}
+
+function glH(ctx,pad,W,H,steps,max,pfx=''){ctx.strokeStyle='rgba(30,58,95,.7)';ctx.lineWidth=1;ctx.setLineDash([3,4]);for(let i=0;i<=steps;i++){const y=pad.t+(i/steps)*(H-pad.t-pad.b);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='right';ctx.fillText(pfx+f2(max*(1-i/steps)),pad.l-4,y+3)}ctx.setLineDash([])}
+
+function buildTable(){
+  const tb=document.getElementById('ctbody');if(!tb)return;tb.innerHTML='';
+  filteredC().forEach(c=>{
+    const ss=Math.min(100,(c.prod/Math.max(c.cons,0.01)*100)),ssC=ss>50?'var(--green)':ss>20?'var(--amber)':'var(--red)';
+    const rc=c.rus>50?'var(--red)':c.rus>30?'var(--amber)':c.rus>0?'var(--blue)':'var(--faint)';
+    const sv=c.stor===0?'N/A':f2(c.stor)+'%';
+    const ss2=c.stor===0?'background:var(--surf2);color:var(--faint);border:1px solid var(--border)':(c.stor>30?'background:var(--green3);color:var(--green);border:1px solid #2a5a3a':c.stor>15?'background:var(--amber3);color:var(--amber);border:1px solid #5a4a20':'background:var(--red3);color:var(--red);border:1px solid #5a2020');
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><span class="cname">${c.n}</span><span class="rbadge ${RC[c.r]}">${RL[c.r]}</span></td><td class="num">${f2(c.prod)}</td><td class="num">${f2(c.cons)}</td><td><div class="bw"><div class="btrack"><div class="bfill" style="width:${Math.min(100,ss).toFixed(0)}%;background:${ssC}"></div></div><span class="blbl" style="color:${ssC}">${f2(ss)}%</span></div></td><td><div class="bw"><div class="btrack"><div class="bfill" style="width:${c.rus}%;background:${rc}"></div></div><span class="blbl" style="color:${rc}">${f2(c.rus)}%</span></div></td><td style="font-size:10px;max-width:200px;color:var(--muted)">${c.lng}</td><td><span class="vb" style="${ss2}">${sv}</span></td><td><span class="vb ${VC[c.vuln]}">${VN[c.vuln]}</span></td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function buildPC(){
+  const cv=document.getElementById('pcChart');if(!cv)return;const W=cv.parentElement.offsetWidth-36;cv.width=W;cv.height=280;
+  const ctx=cv.getContext('2d'),data=filteredC().filter(d=>d.cons>1).sort((a,b)=>b.cons-a.cons).slice(0,20),n=data.length,pad={t:20,r:10,b:56,l:56};
+  const cw=W-pad.l-pad.r,ch=260-pad.t-pad.b,mx=Math.max(...data.map(d=>Math.max(d.cons,d.prod)))+5,gap=cw/n,bw=gap*.33;
+  ctx.clearRect(0,0,W,280);glH(ctx,pad,W,260,4,mx);
+  data.forEach((d,i)=>{const x=pad.l+i*gap+gap/2,yC=pad.t+ch-(d.cons/mx)*ch,yP=pad.t+ch-(d.prod/mx)*ch;ctx.fillStyle=h2r('#f05050',.55);ctx.fillRect(x-bw-1,yC,bw,ch-(yC-pad.t));ctx.fillStyle=h2r('#2dd4a8',.8);ctx.fillRect(x+1,yP,bw,ch-(yP-pad.t));ctx.fillStyle='#7a9cc0';ctx.font='7px Syne';ctx.textAlign='center';ctx.save();ctx.translate(x,270);ctx.rotate(-0.5);ctx.fillText(d.n.length>9?d.n.slice(0,8)+'…':d.n,0,0);ctx.restore()});
+  [[h2r('#2dd4a8',.8),'Production (bcm)'],[h2r('#f05050',.55),'Consumption (bcm)']].forEach(([c,l],i)=>{ctx.fillStyle=c;ctx.fillRect(pad.l+i*140,6,10,6);ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='left';ctx.fillText(l,pad.l+i*140+14,12)});
+}
+
+function buildRus(){
+  const cv=document.getElementById('rusChart');if(!cv)return;const W=cv.parentElement.offsetWidth-36;cv.width=W;cv.height=280;
+  const ctx=cv.getContext('2d'),data=filteredC().filter(d=>d.rus>0).sort((a,b)=>b.rus-a.rus),n=data.length,pad={t:20,r:10,b:56,l:46};
+  if(n===0){ctx.clearRect(0,0,W,280);ctx.fillStyle='#7a9cc0';ctx.font='12px DM Sans';ctx.textAlign='center';ctx.fillText('No Russian gas dependency in this region',W/2,140);return;}
+  const cw=W-pad.l-pad.r,ch=250-pad.t-pad.b,gap=cw/n,bw=Math.min(gap*.57,40);
+  ctx.clearRect(0,0,W,280);
+  for(let i=0;i<=5;i++){const y=pad.t+(i/5)*ch;ctx.strokeStyle='rgba(30,58,95,.7)';ctx.lineWidth=1;ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();ctx.setLine�͠�mt���๙���M�屔���݄卌����๙���������4�5�������ѕ��������ɥ��М��๙���Q��С�Ƞ�Ե�����������������б�̥�(����ф���������������퍽��Ё������������������ȵ�ܼȱ��������̼�������������������������������鐹�����������������蜌͈ቕ��퍽��Ё�����ํɕ�ѕ1�����Ʌ����Р������Э������������Э����ȹ�������Mѽ������ȡ������Ԥ��ȹ�������Mѽ��ı��Ȣcol,.25));ctx.fillStyle=gr;ctx.fillRect(x,pad.t+ch-bh,bw,bh);ctx.fillStyle=col;ctx.font='bold 8px DM Mono';ctx.textAlign='center';ctx.fillText(f2(d.rus)+'%',x+bw/2,pad.t+ch-bh-3);ctx.fillStyle='#7a9cc0';ctx.font='7px Syne';ctx.textAlign='center';ctx.save();ctx.translate(x+bw/2,270);ctx.rotate(-0.5);ctx.fillText(d.n.length>9?d.n.slice(0,8)+'…':d.n,0,0);ctx.restore()});
+}
+
+function buildDonut(){
+  const cv=document.getElementById('donutChart');if(!cv)return;const W=cv.parentElement.offsetWidth-36;cv.width=W;cv.height=290;
+  const ctx=cv.getContext('2d');
+  const mix={Norway:28,Russia:10,Domestic:18,Algeria:8,'US LNG':12,'Other LNG':10,Azerbaijan:5,Nigeria:3,Other:6};
+  const cols={Norway:'#2dd4a8',Russia:'#f05050',Domestic:'#3b8beb',Algeria:'#f0a840','US LNG':'#40d870','Other LNG':'#40a8e0',Azerbaijan:'#a070f0',Nigeria:'#d0a030',Other:'#4a6e94'};
+  const total=Object.values(mix).reduce((a,b)=>a+b,0),cx=W/2,cy=125,r=90,ri=50;
+  let ang=-Math.PI/2;ctx.clearRect(0,0,W,290);
+  Object.entries(mix).forEach(([k,v])=>{const sw=(v/total)*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,ang,ang+sw);ctx.closePath();ctx.fillStyle=cols[k];ctx.fill();ctx.strokeStyle='#111d33';ctx.lineWidth=2;ctx.stroke();if(v>=5){const ma=ang+sw/2;ctx.fillStyle='#fff';ctx.font='bold 8px DM Mono';ctx.textAlign='center';ctx.fillText(v+'%',cx+Math.cos(ma)*(r-18),cy+Math.sin(ma)*(r-18))}ang+=sw});
+  ctx.beginPath();ctx.arc(cx,cy,ri,0,Math.PI*2);ctx.fillStyle='#162544';ctx.fill();
+  ctx.fillStyle='#e0eaf6';ctx.font='bold 12px Syne';ctx.textAlign='center';ctx.fillText('EUROPE',cx,cy-2);ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='center';ctx.fillText('gas mix',cx,cy+12);
+  let lx=12,ly=260;Object.entries(mix).forEach(([k,v])=>{ctx.fillStyle=cols[k];ctx.fillRect(lx,ly,9,7);ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='left';ctx.fillText(k,lx+13,ly+6);lx+=ctx.measureText(k).width+26;if(lx>W-70){lx=12;ly+=13}});
+}
+
+function buildRoutes(){
+  const el=document.getElementById('routeList');if(!el)return;
+  const R=[
+    {n:'Qatar Ras Laffan LNG (global)',s:'HALTED',note:'Force majeure Mar 2 · Hormuz closed · ~20% global LNG offline',c:'#f05050'},
+    {n:'Norwegian pipelines (Europipe / Langeled / Nord)',s:'OPEN',note:'~122 bcm/yr total · primary secure anchor for all Europe',c:'#40d870'},
+    {n:'TurkStream (Russia → Turkey → SEE)',s:'PARTIAL',note:'Still flowing to BG/RS/HU · at risk of further sanctions',c:'#f0a840'},
+    {n:'Alexandroupolis FSRU (Greece)',s:'OPEN',note:'Vertical Corridor GR→BG→RO→HU · new SE European hub',c:'#2dd4a8'},
+    {n:'Krk FSRU (Croatia)',s:'OPEN',note:'2.90 bcm/yr · Adriatic gateway � recently expanded',c:'#40d870'},
+    {n:'Świnoujście LNG (Poland)',s:'OPEN',note:'6.20 bcm/yr · US LNG + Baltic Pipe from Norway',c:'#40d870'},
+    {n:'SGC / TAP (Azerbaijan → Italy / SEE)',s:'OPEN',note:'~10 bcm/yr Italy + IGB tap · expanding to 20 bcm',c:'#40d870'},
+    {n:'Algeria Transmed / Medgaz',s:'OPEN',note:'~30 bcm/yr to Italy / Spain · no Hormuz exposure',c:'#40d870'},
+    {n:'German FSRUs (Lubmin / Wilhelmshaven / Brunsbüttel)',s:'OPEN',note:'Combined ~22 bcm/yr · rapid deployment 2022-24',c:'#40d870'},
+    {n:'Gate Terminal Rotterdam (NL)',s:'OPEN',note:'12 bcm/yr · NW Europe LNG hub',c:'#40d870'},
+    {n:'Dunkerque / Fos / Montoir (France)',s:'OPEN',note:'~33 bcm/yr combined · critical for Western Europe',c:'#40d870'},
+    {n:'Spanish LNG terminals (6 sites)',s:'OPEN',note:'~68 bcm/yr capacity · Europe\'s largest LNG infrastructure',c:'#40d870'},
+    {n:'UK terminals (Isle of Grain / S. Hook / Milford)',s:'OPEN',note:'~48 bcm/yr combined · North Sea production supplement',c:'#40d870'},
+    {n:'Klaipėda FSRU Independence (Lithuania)',s:'OPEN',note:'4 bcm/yr · Baltic states security anchor',c:'#40d870'},
+    {n:'Inkoo FSRU (Finland)',s:'OPEN',note:'~5 bcm/yr · replaced Russian pipeline gas',c:'#40d870'},
+    {n:'Neptun Deep (Romania — 2027)',s:'PENDING',note:'~4 bcm/yr · OMV Petrom / Romgaz · production expected 2027',c:'#f0a840'},
+  ];
+  el.innerHTML=R.map(r=>`<div class="route-row"><div class="rdot" style="background:${r.c}"></div><div style="flex:1"><div class="rname">${r.n}</div><div class="rnote">${r.note}</div></div><div cclass="rstatus" style="color:${r.c};border-color:${r.c};background:${r.c}18">${r.s}</div></div>`).join('');
+}
+
+function buildStack(){
+  const keys=Object.keys(SC_COLORS);
+  const le=document.getElementById('ssLegend'),st=document.getElementById('ssStack');if(!le||!st)return;
+  const usedKeys=new Set();C.forEach(c=>{const src=CSRC[c.n]||{};Object.keys(src).forEach(k=>usedKeys.add(k))});
+  le.innerHTML=[...usedKeys].filter(k=>SN[k]).map(k=>`<div class="li"><div class="ld" style="background:${SC_COLORS[k]||'#4a6e94'}"></div><span class="lt">${SN[k]||k}</span></div>`).join('');
+  st.innerHTML=C.filter(c=>c.cons>0).map(c=>{const src=CSRC[c.n]||{other:100};const segs=keys.map(k=>{const p=src[k]||0;return p>0?`<div class="ss-seg" style="width:${p}%;background:${SC_COLORS[k]||'#4a6e94'};opacity:.85"></div>`:''}).join('');return`<div class="ss-row"><span class="ss-lbl">${c.n}</span><div class="ss-bar">${segs}</div><span class="ss-tot">${f2(c.cons)} bcm</span></div>`}).join('');
+}
+
+function buildTTF(){
+  const cv=document.getElementById('ttfChart');if(!cv)return;const W=cv.parentElement.offsetWidth-36;cv.width=W;cv.height=220;
+  const ctx=cv.getContext('2d'),prices=[31,31,31,32,51,57,58,60,55,52,54,58,60,56,52,50,52,50,52,51,53,52],n=prices.length,pad={t:20,r:20,b:36,l:56};
+  const cw=W-pad.l-pad.r,ch=220-pad.t-pad.b,mx=65,mn=28;
+  ctx.clearRect(0,0,W,220);glH(ctx,pad,W,220,4,mx,'€');
+  [[3,'#f05050','WAR'],[4,'#f0a840','Qatar halt']].forEach(([i,col,lbl])=>{const x=pad.l+(i/(n-1))*cw;ctx.strokeStyle=col+'44';ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(x,pad.t);ctx.lineTo(x,pad.t+ch);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=col;ctx.font='7px DM Mono';ctx.textAlign='left';ctx.fillText(lbl,x+3,pad.t+11)});
+  [[74,'#f0a840','€74.00 GS'],[52,'#2dd4a8','€52.00 today']].forEach(([v,col,lbl])=>{const y=pad.t+(1-(v-mn)/(mx-mn))*ch;ctx.strokeStyle=col+'44';ctx.lineWidth=1;ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=col;ctx.font='7px DM Mono';ctx.textAlign='left';ctx.fillText(lbl,pad.l+2,y-2)});
+  ctx.beginPath();prices.forEach((p,i)=>{const x=pad.l+(i/(n-1))*cw,y=pad.t+(1-(p-mn)/(mx-mn))*ch;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});ctx.lineTo(W-pad.r,pad.t+ch);ctx.lineTo(pad.l,pad.t+ch);ctx.closePath();const gr=ctx.createLinearGradient(0,pad.t,0,pad.t+ch);gr.addColorStop(0,h2r('#3b8beb',.18));gr.addColorStop(1,h2r('#3b8beb',.02));ctx.fillStyle=gr;ctx.fill();
+  ctx.beginPath();prices.forEach((p,i)=>{const x=pad.l+(i/(n-1))*cw,y=pad.t+(1-(p-mn)/(mx-mn))*ch;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});ctx.strokeStyle='#3b8beb';ctx.lineWidth=2.5;ctx.stroke();
+  ['Feb 24','','','Feb 28','Mar 2','','','','Mar 7','','','Mar 11','','','','Mar 16','','Mar 18','','Mar 21','','Mar 23'].forEach((l,i)=>{if(!l)return;const x=pad.l+(i/(n-1))*cw;ctx.fillStyle='#7a9cc0';ctx.font='7px DM Mono';ctx.textAlign='center';ctx.fillText(l,x,220-pad.b+13)});
+}
+
+function buildGap(){
+  const cv=document.getElementById('gapChart');if(!cv)return;const W=cv.parentElement.offsetWidth-36;cv.width=W;cv.height=220;
+  const ctx=cv.getContext('2d');
+  const items=[{l:'Qatar LNG\nlost',v:5.0,c:'#f05050'},{l:'UAE/Oman\nreduced',v:1.2,c:'#f0a840'},{l:'Asia\noutbids EU',v:0.8,c:'#d06050'},{l:'US LNG\nat cap',v:-0.8,c:'#40d870'},{l:'Algeria\nstable',v:-0.4,c:'#2dd4a8'},{l:'Norway\nstable',v:-0.3,c:'#3b8beb'},{l:'Demand\ndrop',v:-0.8,c:'#a070f0'},{l:'Net\nGap',v:4.7,c:'#f0a840'}];
+  const pad={t:24,r:10,b:48,l:52},cw=W-pad.l-pad.r,ch=220-pad.t-pad.b,mx=6,gap=cw/items.length,bw=gap*.56;
+  ctx.clearRect(0,0,W,220);
+  for(let i=0;i<=4;i++){const y=pad.t+(i/4)*ch;ctx.strokeStyle='rgba(30,58,95,.7)';ctx.lineWidth=1;ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='right';ctx.fillText(f2(mx-i*mx/4),pad.l-4,y+3)}
+  const base=pad.t+ch;
+  items.forEach((item,i)=>{const x=pad.l+i*gap+gap/2-bw/2,ah=(Math.abs(item.v)/mx)*ch,y=item.v>0?base-ah:base;const gr=ctx.createLinearGradient(0,y,0,y+ah);gr.addColorStop(0,h2r(item.c,.85));gr.addColorStop(1,h2r(item.c,.22));ctx.fillStyle=gr;ctx.fillRect(x,y,bw,ah);ctx.fillStyle=item.c;ctx.font='bold 8px DM Mono';ctx.textAlign='center';ctx.fillText((item.v>0?'+':'')+f2(item.v),x+bw/2,item.v>0?y-4:y+ah+10);item.l.split('\n').forEach((l,li)=>{ctx.fillStyle='#7a9cc0';ctx.font='7px Syne';ctx.textAlign='center';ctx.fillText(l,x+bw/2,220-pad.b+12+li*11)})});
+}
+
+function buildCostTable(){
+  const tb=document.getElementById('costBody');if(!tb||tb.children.length>0)return;
+  C.filter(c=>c.cons>c.prod).sort((a,b)=>(b.cons-b.prod)-(a.cons-a.prod)).slice(0,20).forEach(c=>{
+    const imp=Math.max(0,c.cons-c.prod),pre=Math.round(imp*31*277.8/12),cur=Math.round(imp*52*277.8/12);
+    const flag=c.rus>=50?'🔴 High Russia dep.':c.stor===0&&c.cons>0.1?'⚠ Zero storage':c.stor<15&&c.stor>0?'⚠ Critical low':c.vuln==='L'?'✓ Well positioned':'⚠ Elevated';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><span style="font-family:Syne,sans-serif;font-weight:700;font-size:13px">${c.n}</span></td><td class="num">${f2(imp)}</td><td class="num" style="color:var(--muted)">€${pre.toFixed(2)}M</td><td class="num" style="color:var(--red)">€${cur.toFixed(2)}M</td><td class="num" style="color:var(--red)">+€${(cur-pre).toFixed(2)}M</td><td class="num" style="color:var(--red)">+67.74%</td><td style="font-size:11px">${flag}</td>`;
+    tb.appendChild(tr)});
+}
+
+function buildGauges(){
+  const storageCountries=C.filter(c=>c.stor>0||c.cons>0.5).sort((a,b)=>b.stor-a.stor);
+  const grid=document.getElementById('gaugeGrid');if(!grid)return;grid.innerHTML='';
+  storageCountries.forEach(d=>{
+    const col=d.stor>=35?'#2dd4a8':d.stor>=20?'#f0a840':d.stor>=5?'#f05050':d.stor>0?'#f05050':'#4a6e94';
+    const r=26,circ=2*Math.PI*r,dash=(d.stor/100)*circ;
+    const status=d.stor>=35?'OK':d.stor>=20?'LOW':d.stor>=5?'CRITICAL':d.stor===0?'N/A':'NEAR EMPTY';
+    const div=document.createElement('div');div.className='gauge-item';
+    div.innerHTML=`<div class="gauge-name">${d.n}</div><svg viewBox="0 0 60 60" width="56" height="56"><circle cx="30" cy="30" r="${r}" fill="none" stroke="var(--border)" stroke-width="6"/><circle cx="30" cy="30" r="${r}" fill="none" stroke="${col}" stroke-width="6" stroke-dasharray="${dash} ${circ}" transform="rotate(-90 30 30)" stroke-linecap="round"/><text x="30" y="32" text-anchor="middle" dominant-baseline="middle" fill="${col}" font-family="Syne" font-weight="700" font-size="${d.stor===0?'7':'8'}">${d.stor===0?'N/A':f2(d.stor)+'%'}</text></svg><div class="gauge-status" style="color:${col}">${status}</div>`;
+    grid.appendChild(div)});
+}
+
+function buildStorTraj(){
+  const cv=document.getElementById('storChart');if(!cv)return;const W=cv.parentElement.offsetWidth-36;cv.width=W;cv.height=270;
+  const ctx=cv.getContext('2d'),months=['Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],n=months.length,pad={t:22,r:66,b:38,l:46},cw=W-pad.l-pad.r,ch=270-pad.t-pad.b;
+  const series=[{d:[85,79,72,65,58,50,45,52,62,72,80,88,88,82,90],c:'rgba(60,90,130,.5)',dash:[]},{d:[88,83,76,70,63,55,50,55,63,70,77,84,84,78,85],c:'rgba(45,212,168,.4)',dash:[3,3]},{d:[83,73,65,55,46,29,null,null,null,null,null,null,null,null,null],c:'#3b8beb',dash:[],lw:2.5},{d:[null,null,null,null,null,29,34,42,52,62,70,78,82,null,null],c:'#40d870',dash:[6,3],lw:1.5},{d:[null,null,null,null,null,29,26,30,36,44,52,60,65,null,null],c:'#f0a840',dash:[6,3],lw:1.5},{d:[null,null,null,null,null,29,20,20,22,26,32,40,45,null,null],c:'#f05050',dash:[4,3],lw:1.5}];
+  ctx.clearRect(0,0,W,270);
+  const y90=pad.t+(1-0.90)*ch;ctx.strokeStyle='rgba(59,139,235,.3)';ctx.lineWidth=1;ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(pad.l,y90);ctx.lineTo(pad.l+cw,y90);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#3b8beb';ctx.font='7px DM Mono';ctx.textAlign='left';ctx.fillText('90.00% EU target',pad.l+2,y90-3);
+  for(let i=0;i<=5;i++){const y=pad.t+(i/5)*ch;ctx.strokeStyle='rgba(30,58,95,.7)';ctx.lineWidth=1;ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cw,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='right';ctx.fillText(f2(100-i*20)+'%',pad.l-4,y+3)}
+  series.forEach(ser=>{let st=false;ctx.beginPath();ctx.setLineDash(ser.dash);ctx.strokeStyle=ser.c;ctx.lineWidth=ser.lw||1.5;ser.d.forEach((v,i)=>{if(v===null)return;const x=pad.l+(i/(n-1))*cw,y=pad.t+(1-v/100)*ch;st?ctx.lineTo(x,y):(ctx.moveTo(x,y),st=true)});ctx.stroke();ctx.setLineDash([])});
+  months.forEach((m,i)=>{if(i%2===0){const x=pad.l+(i/(n-1))*cw;ctx.fillStyle='#7a9cc0';ctx.font='7px DM Mono';ctx.textAlign='center';ctx.fillText(m,x,270-pad.b+13)}});
+  const legs=[['#3b8beb','2026 Actual'],['#40d870','Base Sc.'],['#f0a840','Stress Sc.'],['#f05050','Severe Sc.'],['rgba(45,212,168,.4)','2025'],['rgba(60,90,130,.5)','5yr avg']];
+  legs.forEach((lg,i)=>{ctx.fillStyle=lg[0];ctx.fillRect(pad.l+i*72,7,14,4);ctx.fillStyle='#7a9cc0';ctx.font='7px DM Mono';ctx.textAlign='left';ctx.fillText(lg[1],pad.l+i*72+18,12)});
+}
+
+function buildInfra(){
+  const el=document.getElementById('infraList');if(!el)return;
+  const items=[
+    {icon:'⛴',n:'Alexandroupolis FSRU (Greece)',note:'Vertical Corridor GR→BG→RO→HU · key new SE European hub',cap:'5.50 bcm/yr'},
+    {icon:'🚢',n:'Krk FSRU (Croatia)',note:'Adriatic gateway · expanded 2024 · feeds HU / AT / SI',cap:'2.90 bcm/yr'},
+    {icon:'🏭',n:'Świnoujście LNG (Poland)',note:'US LNG primary · Baltic Pipe from Norway as backup',cap:'6.20 bcm/yr'},
+    {icon:'⛴',n:'German FSRUs (Lubmin / Wilhelmshaven / Brunsbüttel)',note:'Rapid deployment 2022-24 · replaced Russian pipeline gas',cap:'~22.00 bcm/yr'},
+    {icon:'🏭',n:'Gate Terminal Rotterdam (Netherlands)',note:'NW Europe LNG hub · feeds NL / BE / DE',cap:'12.00 bcm/yr'},
+    {icon:'🏭',n:'French LNG Terminals (Dunkerque / Fos / Montoir)',note:'Three major terminals serving Western Europe',cap:'~33.00 bcm/yr'},
+    {icon:'🏭',n:'Spanish LNG Terminals (6 sites)',note:'Europe\'s largest regas capacity · El Ferrol, Barcelona, Cartagena, Bilbao, Huelva, Sagunto',cap:'~68.00 bcm/yr'},
+    {icon:'🏭',n:'UK LNG Terminals (IoG / South Hook / Milford)',note:'Major Atlantic LNG receivers · feeds UK & NW Europe',cap:'~48.00 bcm/yr'},
+    {icon:'⛴',n:'Klaipėda FSRU Independence (Lithuania)',note:'Baltic states security anchor · US LNG supply',cap:'4.00 bcm/yr'},
+    {icon:'⛴',n:'Inkoo FSRU (Finland)',note:'Replaced Russian pipeline gas · Balticconnector link to Estonia',cap:'~5.00 bcm/yr'},
+    {icon:'📡',n:'SGC / TAP Pipeline (AZ→IT)',note:'10 bcm/yr Italy + IGB tap to SE Europe · expanding to 20',cap:'10→20 bcm/yr'},
+    {icon:'📡',n:'Norwegian pipeline system',note:'Europipe I&II, Langeled, Norpipe, Åsgard Transport · to UK/DE/BE/FR',cap:'~122.00 bcm/yr'},
+    {icon:'🔩',n:'Neptun Deep (Romania — 2027)',note:'OMV Petrom / Romgaz · Black Sea offshore · critical regional asset',cap:'~8.00 bcm/yr (2027)'},
+    {icon:'📡',n:'Algeria Transmed / Medgaz',note:'~30 bcm/yr to Italy / Spain · no Hormuz exposure',cap:'~30.00 bcm/yr'},
+    {icon:'🔄',n:'Baltic Pipe (NO→DK→PL)',note:'10 bcm/yr · Norwegian gas to Poland via Denmark',cap:'10.00 bcm/yr'},
+  ];
+  el.innerHTML=items.map(it=>`<div class="infra-row"><div class="infra-icon">${it.icon}</div><div style="flex:1"><div class="infra-name">${it.n}</div><div class="infra-note">${it.note}</div></div><div class="infra-cap">${it.cap}</div></div>`).join('');
+}
+
+function buildRefill(){
+  const cv=document.getElementById('refillChart');if(!cv)return;const W=cv.parentElement.offsetWidth-36;cv.width=W;cv.height=270;
+  const ctx=cv.getContext('2d');
+  const D=[{n:'Spain',cur:34,target:90,feas:82},{n:'Netherlands',cur:32,target:90,feas:72},{n:'Czech',cur:31,target:85,feas:62},{n:'France',cur:30,target:90,feas:70},{n:'Croatia',cur:30,target:80,feas:60},{n:'Romania',cur:38,target:80,feas:65},{n:'Poland',cur:29,target:85,feas:68},{n:'Germany',cur:28,target:90,feas:58},{n:'Slovakia',cur:28,target:80,feas:52},{n:'Austria',cur:26,target:80,feas:58},{n:'Hungary',cur:25,target:80,feas:50},{n:'Bulgaria',cur:24,target:80,feas:48},{n:'Italy',cur:22,target:85,feas:55},{n:'Turkey',cur:20,target:80,feas:50},{n:'UK',cur:8,target:70,feas:40},{n:'Greece',cur:5,target:70,feas:35}];
+  const n=D.length,pad={t:20,r:10,b:52,l:46},cw=W-pad.l-pad.r,ch=270-pad.t-pad.b,gap=cw/n,bw=gap*.6;
+  ctx.clearRect(0,0,W,270);
+  for(let i=0;i<=5;i++){const y=pad.t+(i/5)*ch;ctx.strokeStyle='rgba(30,58,95,.7)';ctx.lineWidth=1;ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='right';ctx.fillText(f2(100-i*20)+'%',pad.l-4,y+3)}
+  D.forEach((d,i)=>{const x=pad.l+i*gap+gap/2-bw/2;ctx.fillStyle='rgba(30,58,95,.4)';const yT=pad.t+(1-d.target/100)*ch;ctx.fillRect(x,yT,bw,ch-(yT-pad.t));const col=d.feas>=60?'#40d870':d.feas>=45?'#f0a840':'#f05050';ctx.fillStyle=h2r(col,.65);const yF=pad.t+(1-d.feas/100)*ch;ctx.fillRect(x,yF,bw,ch-(yF-pad.t));const yC=pad.t+(1-d.cur/100)*ch;ctx.beginPath();ctx.arc(x+bw/2,yC,3.5,0,Math.PI*2);ctx.fillStyle='#3b8beb';ctx.fill();ctx.fillStyle='#7a9cc0';ctx.font='7px Syne';ctx.textAlign='center';ctx.save();ctx.translate(x+bw/2,270-pad.b+14);ctx.rotate(-0.5);ctx.fillText(d.n.length>7?d.n.slice(0,6)+'…':d.n,0,0);ctx.restore()});
+  ctx.fillStyle='rgba(30,58,95,.4)';ctx.fillRect(pad.l,6,12,7);ctx.fillStyle='#7a9cc0';ctx.font='7px DM Mono';ctx.textAlign='left';ctx.fillText('Target',pad.l+15,12);ctx.fillStyle=h2r('#f0a840',.65);ctx.fillRect(pad.l+56,6,12,7);ctx.fillText('Feasible',pad.l+71,12);ctx.beginPath();ctx.arc(pad.l+136,9.5,3.5,0,Math.PI*2);ctx.fillStyle='#3b8beb';ctx.fill();ctx.fillText('Current',pad.l+143,12);
+}
+
+function buildScenCards(){
+  const el=document.getElementById('scCards');if(!el)return;
+  const S=[
+    {cls:'sc1',label:'Scenario 1',title:'Quick Resolution',prob:'~25% probability',sub:'Hormuz reopens ≤4 weeks',rows:[{k:'TTF Q2 avg',v:'€45.00–€50.00'},{k:'TTF 2026 avg',v:'€42.00 (HSBC +15%)'},{k:'Storage Dec',v:'72.00–80.00%'},{k:'LNG gap',v:'~8.00–10.00 bcm'},{k:'EU demand cut',v:'None required'},{k:'Recession',v:'Low'}]},
+    {cls:'sc2',label:'Scenario 2',title:'Extended Closure',prob:'~40% probability',sub:'6–8 weeks disruption',rows:[{k:'TTF Q2 avg',v:'€65.00–€74.00'},{k:'Goldman warning',v:'TTF → €74.00'},{k:'Storage Dec',v:'55.00–65.00% (miss)'},{k:'LNG gap',v:'20.00–28.00 bcm'},{k:'BG / RS / HU',v:'Rationing begins'},{k:'Recession',v:'Moderate'}]},
+    {cls:'sc3',label:'Scenario 3',title:'Prolonged Blockade',prob:'~25% probability',sub:'3–4 month disruption',rows:[{k:'TTF Q2 avg',v:'€85.00–€100.00+'},{k:'Goldman peak',v:'€100.00+'},{k:'Storage Dec',v:'35.00–50.00% crisis'},{k:'LNG gap',v:'>40.00 bcm'},{k:'Mandatory cuts',v:'EU-wide 15.00%'},{k:'Recession',v:'High'}]},
+    {cls:'sc4',label:'Scenario 4',title:'Severe / Prolonged',prob:'~10% probability',sub:'6+ months / infra damage',rows:[{k:'TTF peak',v:'€150.00–€200.00+'},{k:'HSBC 2027',v:'$10.00/MMBtu elevated'},{k:'Storage Dec',v:'<20.00% Oxford Econ.'},{k:'EU-wide',v:'Emergency protocol'},{k:'EU inflation',v:'+3.00–5.00 pp'},{k:'Recession',v:'VERY HIGH'}]},
+  ];
+  el.innerHTML=S.map(s=>`<div class="sc-card ${s.cls}"><div class="sc-label">${s.label}</div><div class="sc-title">${s.title}</div><div class="sc-sub">${s.sub}</div><div class="sc-prob">${s.prob}</div>${s.rows.map(r=>`<div class="sc-row"><span class="sc-k">${r.k}</span><span class="sc-v">${r.v}</span></div>`).join('')}</div>`).join('');
+}
+
+function buildScTTF(){
+  const cv=document.getElementById('scTTF');if(!cv)return;const W=cv.parentElement.offsetWidth-36;cv.width=W;cv.height=230;
+  const ctx=cv.getContext('2d'),months=['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'],n=months.length,pad={t:24,r:82,b:38,l:56};
+  const cw=W-pad.l-pad.r,ch=230-pad.t-pad.b,mx=170,mn=30;
+  const series=[{n='Sc.1 Quick',c:'#40d870',v:[52,48,46,42,40,40,40,41]},{n='Sc.2 Extended',c:'#2dd4a8',v:[52,68,72,66,60,55,52,53]},{n='Sc.3 Prolonged',c:'#f0a840',v:[52,84,98,108,98,85,74,70]},{n:'Sc.4 Severe',c:'#f05050',v:[52,98,135,158,162,155,142,133]}];
+  ctx.clearRect(0,0,W,230);
+  [[74,'rgba(240,168,64,.35)','€74.00 GS'],[100,'rgba(240,80,80,.35)','€100.00 crisis']].forEach(([v,c,l])=>{const y=pad.t+(1-(v-mn)/(mx-mn))*ch;ctx.strokeStyle=c;ctx.lineWidth=1;ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cw,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#7a9cc0';ctx.font='7px DM Mono';ctx.textAlign='left';ctx.fillText(l,pad.l+cw+4,y+3)});
+  for(let i=0;i<=6;i++){const y=pad.t+(i/6)*ch;ctx.strokeStyle='rgba(30,58,95,.7)';ctx.lineWidth=1;ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cw,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='right';ctx.fillText('€'+f2(mx-(i/6)*(mx-mn)),pad.l-4,y+3)}
+  series.forEach(s=>{ctx.beginPath();s.v.forEach((v,i)=>{const x=pad.l+(i/(n-1))*cw,y=pad.t+(1-(v-mn)/(mx-mn))*ch;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});ctx.strokeStyle=s.c;ctx.lineWidth=2;ctx.stroke();const lx=pad.l+cw,ly=pad.t+(1-(s.v[n-1]-mn)/(mx-mn))*ch;ctx.beginPath();ctx.arc(lx,ly,3,0,Math.PI*2);ctx.fillStyle=s.c;ctx.fill();ctx.fillStyle=s.c;ctx.font='8px DM Mono';ctx.textAlign='left';ctx.fillText('€'+f2(s.v[n-1]),lx+6,ly+3)});
+  months.forEach((m,i)=>{const x=pad.l+(i/(n-1))*cw;ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='center';ctx.fillText(m,x,230-pad.b+13)});
+  let lx2=pad.l;series.forEach(s=>{ctx.fillStyle=s.c;ctx.fillRect(lx2,7,14,3);ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='left';ctx.fillText(s.n,lx2+18,12);lx2+=(ctx.measureText(s.n).width+32)});
+}
+
+function buildScStor(){
+  const cv=document.getElementById('scStor');if(!cv)return;const W=cv.parentElement.offsetWidth-36;cv.width=W;cv.height=230;
+  const ctx=cv.getContext('2d'),months=['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],n=months.length,pad={t:24,r:54,b:38,l:46};
+  const cw=W-pad.l-pad.r,ch=230-pad.t-pad.b;
+  const series=[{n='Sc.1',c:'#40d870',v:[29,32,40,52,63,72,78,82,85,78]},{n='Sc.2',c:'#2dd4a8',v:[29,28,32,40,50,60,66,72,75,62]},{n='Sc.3',c:'#f0a840',v:[29,24,24,27,33,39,46,52,57,42]},{n='Sc.4',c:'#f05050',v:[29,20,18,18,20,23,28,34,40,26]}];
+  ctx.clearRect(0,0,W,230);
+  const y90=pad.t+(1-0.90)*ch;ctx.strokeStyle='rgba(59,139,235,.3)';ctx.lineWidth=1;ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(pad.l,y90);ctx.lineTo(pad.l+cw,y90);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#3b8beb';ctx.font='7px DM Mono';ctx.textAlign='left';ctx.fillText('90.00%',pad.l+cw+4,y90+3);
+  for(let i=0;i<=5;i++){const y=pad.t+(i/5)*ch;ctx.strokeStyle='rgba(30,58,95,.7)';ctx.lineWidth=1;ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cw,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='right';ctx.fillText(f2(100-i*20)+'%',pad.l-4,y+3)}
+  series.forEach(s=>{ctx.beginPath();s.v.forEach((v,i)=>{const x=pad.l+(i/(n-1))*cw,y=pad.t+(1-v/100)*ch;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});ctx.strokeStyle=s.c;ctx.lineWidth=2;ctx.stroke();const lx=pad.l+cw,ly=pad.t+(1-s.v[n-1]/100)*ch;ctx.beginPath();ctx.arc(lx,ly,3,0,Math.PI*2);ctx.fillStyle=s.c;ctx.fill();ctx.fillStyle=s.c;ctx.font='8px DM Mono';ctx.textAlign='left';ctx.fillText(f2(s.v[n-1])+'%',lx+5,ly+3)});
+  months.forEach((m,i)=>{const x=pad.l+(i/(n-1))*cw;ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='center';ctx.fillText(m,x,230-pad.b+13)});
+  let lx2=pad.l;series.forEach(s=>{ctx.fillStyle=s.c;ctx.fillRect(lx2,7,14,3);ctx.fillStyle='#7a9cc0';ctx.font='8px DM Mono';ctx.textAlign='left';ctx.fillText(s.n,lx2+18,12);lx2+=(ctx.measureText(s.n).width+32)});
+}
+
+function buildImpact(){
+  const tb=document.getElementById('impactBody');if(!tb||tb.children.length>0)return;
+  const D=[
+    {n:'Germany',  sc1:'⚠ Cost increase · FSRUs buffer',sc2:'⚠ Industrial demand pressure',sc3:'🔴 Mandatory 15% cut',sc4:'🔥 Major GDP impact',risk:'Largest consumer · FSRU-dependent since Nord Stream'},
+    {n:'Italy',    sc1:'⚠ Qatar LNG 30% repriced',sc2:'🔴 Power: 89% hours gas-set',sc3:'🔥 Industrial curtailment',sc4:'🔥 Major GDP impact',risk:'89% electricity hours gas-set (Ember)'},
+    {n:'UK',       sc1:'✓ North Sea buffer · LNG flex',sc2:'⚠ Cost spike · 8% storage',sc3:'🔴 Low storage stress',sc4:'🔥 Emergency measures',risk:'Only 8% storage — continuous flow dependent'},
+    {n:'France',   sc1:'✓ Nuclear reduces gas dep.',sc2:'⚠ Cost increase · Algeria buffer',sc3:'⚠ Industrial pressure',sc4:'🔴 Moderate disruption',risk:'Nuclear buffer reduces vulnerability'},
+    {n:'Netherlands',sc1:'✓ Gate Terminal + Groningen legacy',sc2:'⚠ Cost increase',sc3:'⚠ Hub role tested',sc4:'🔴 TTF volatility epicenter',risk:'TTF pricing hub — market stress amplifier'},
+    {n:'Spain',    sc1:'✓ Massive LNG capacity',sc2:'✓ Best-insulated large country',sc3:'⚠ Cost burden rises',sc4:'⚠ Algeria stability key',risk:'68 bcm LNG capacity — best diversified'},
+    {n:'Poland',   sc1:'✓ Świnoujście + Baltic Pipe',sc2:'✓ LNG flexibility · costs up',sc3:'✓ Best in Central EU',sc4:'⚠ Cost burden rises',risk:'Best diversified Central EU'},
+    {n:'Hungary',  sc1:'⚠ 65% Russian gas · limited LNG',sc2:'🔴 Cost spike + supply concern',sc3:'🔥 Severe — rationing possible',sc4:'🔥 Emergency protocol',risk:'65% Russia, 25% storage — very vulnerable'},
+    {n:'Bulgaria', sc1:'⚠ 70% Russian gas · TurkStream risk',sc2:'🔴 Supply squeeze',sc3:'🔥 Emergency via Alexandroupolis',sc4:'🔥 Critical exposure',risk:'High Russia dep. · Alexandroupolis lifeline'},
+    {n:'Serbia',   sc1:'⚠ 55% Russian gas · zero storage',sc2:'🔴 Curtailment risk',sc3:'🔥 Acute shortage',sc4:'🔥 Humanitarian risk',risk:'Most exposed: Russian-only, zero storage, no LNG'},
+    {n:'Romania',  sc1:'✓ 88% self-sufficient · 38% storage',sc2:'✓ Moderate cost increase',sc3:'⚠ LNG access limited',sc4:'⚠ Neptun Deep not yet online',risk:'Best CESE position · Neptun Deep critical 2027'},
+    {n:'Slovakia', sc1:'⚠ 55% Russian gas',sc2:'🔴 Transit disruption risk',sc3:'🔥 Emergency measures',sc4:'🔥 Critical',risk:'Russian gas transit hub — both dependent and vulnerable'},
+    {n:'Austria',  sc1:'⚠ 30% Russia · German supply',sc2:'⚠ Cost escalation',sc3:'🔴 Rationing possible',sc4:'🔥 Major disruption',risk:'30% Russia, reliant on German FSRU flow'},
+    {n:'Turkey',   sc1:'⚠ 33% Russian gas',sc2:'⚠ Multiple source buffer',sc3:'🔴 Hormuz hits LNG supply',sc4:'🔥 Regional hub tested',risk:'Multiple sources but Hormuz hits LNG imports'},
+    {n:'Greece',   sc1:'⚠ Only 5% storage',sc2:'🔴 Storage critical',sc3:'🔥 Regional hub tested',sc4:'🔥 Alex. FSRU critical',risk:'5% storage — fully dependent on continuous flows'},
+    {n:'Finland',  sc1:'✓ Inkoo FSRU operational',sc2:'✓ Post-Russia transition done',sc3:'⚠ Cost increase',sc4:'⚠ Baltic supply tested',risk:'Successfully diversified away from Russia'},
+    {n:'Moldova',  sc1:'🔴 100% Russian gas',sc2:'🔥 Critical immediately',sc3:'🔥 Humanitarian crisis',sc4:'🔥 Complete cutoff risk',risk:'100% Russian dependency — no alternatives'},
+    {n:'Ukraine',  sc1:'⚠ War + transit disruption',sc2:'🔴 Storage depletion',sc3:'🔥 Severe energy crisis',sc4:'🔥 Humanitarian emergency',risk:'Active conflict + depleted reserves'},
+    {n:'Bosnia & H.',sc1:'⚠ 60% Russia via Serbia',sc2:'🔴 Supply at risk',sc3:'🔥 Emergency',sc4:'🔥 Critical',risk:'Russian gas via Serbia — no alternatives'},
+  ];
+  const fx={'✓':'var(--green)','⚠':'var(--amber)','🔴':'var(--red)','🔥':'var(--red)'};
+  D.forEach(row=>{
+    function fc(s){const k=Object.keys(fx).find(k=>s.startsWith(k));return k?`style="font-size:11px;color:${fx[k]}"`:'';}
+    const tr=document.createElement('tr');tr.className='impact-row';
+    tr.innerHTML=`<td><span style="font-family:Syne,sans-serif;font-weight:700;font-size:13px">${row.n}</span></td><td ${fc(row.sc1)}>${row.sc1}</td><td ${fc(row.sc2)}>${row.sc2}</td><td ${fc(row.sc3)}>${row.sc3}</td><td ${fc(row.sc4)}>${row.sc4}</td><td style="font-size:10px;color:var(--muted)">${row.risk}</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+/* ─── BRIEF ─── */
+const BRIEF_PROMPT=`You are a senior natural gas market analyst. Today is March 2026. The US-Israel-Iran war (Feb 28) closed the Strait of Hormuz, triggering Qatar LNG force majeure. TTF is ~€52.00/MWh (+67.74%). EU storage is 29.00% — a 5-year low. Use 2 decimal places on every price quote.
+
+### LIVE PRICES
+Latest TTF spot €/MWh and NBP (UK) with today's % change (2dp).
+
+### SUPPLY STATUS
+Qatar LNG / Hormuz situation. Norwegian pipeline flows. TurkStream, German FSRUs, Spanish terminals, French terminals update.
+
+### EUROPEAN STORAGE & DEMAND
+EU average %. Specific figures for Germany, France, Netherlands, UK, Italy, Spain, Poland, Romania, Hungary, Bulgaria, Greece, Turkey.
+
+### TOP 3 RISKS — NEXT 7 DAYS
+The three most critical risks for European natural gas security.
+
+### PRICE OUTLOOK
+TTF 7-day trajectory. Key thresholds: Goldman Sachs €74.00/MWh warning and €100.00/MWh crisis level.
+
+Be specific with numbers, 2dp on all prices. 400–500 words total.`;
+
+async function initBrief(){
+  const e=getCET();document.getElementById('brief-ts-str').textContent='Current time: '+e.str;
+  const slot=[10,16].reverse().find(h=>e.hour>=h)||null;
+  const badge=document.getElementById('slot-badge'),lbl=document.getElementById('brief-ts-label');
+  if(!slot){badge.textContent='Awaiting 10:00 CET';lbl.textContent='Next brief at 10:00 CET · Click Refresh Now to generate immediately';document.getElementById('brief-content').innerHTML='<p style="font-family:var(--mono);font-size:11px;color:var(--muted);padding:14px 0">⏰ No brief generated yet today. First auto-brief at <strong style="color:var(--blue)">10:00 CET</strong>.</p>';return}
+  badge.textContent=slot===16?'16:00 CET brief':'10:00 CET brief';
+  lbl.textContent='Slot: '+slot+':00 CET · '+e.date;
+  const key='brief_'+DASH_ID+'_'+e.date+'_'+slot;
+  try{const c=await window.storage.get(key);renderBrief(JSON.parse(c.value))}catch(_){await fetchBrief(key,slot)}
+}
+async function fetchBrief(key,slot){
+  const btn=document.getElementById('refresh-btn');btn.disabled=true;btn.textContent='⟳ Fetching…';
+  document.getElementById('brief-content').innerHTML='<div class="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div>Fetching AI-generated market brief from server…</div>';
+  try{
+    const res=await fetch(API_BASE+'/api/brief',{signal:AbortSignal.timeout(90000)});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    const text=data.brief||'No brief content returned.';
+    const brief={text,slot,ts:data.generated_at||new Date().toISOString(),sources:data.sources_used||0,words:data.word_count||0};
+    try{await window.storage.set(key,JSON.stringify(brief))}catch(_){}
+    renderBrief(brief);extractAndUpdateKPIs(text);
+    /* Update brief footer with source info */
+    const ft=document.getElementById('brief-footer');
+    if(ft)ft.textContent='Generated: '+new Date(brief.ts).toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})+' · '+brief.words+' words · '+brief.sources+' sources · Powered by Claude';
+  }catch(err){
+    console.warn('Brief API failed:',err.message);
+    document.getElementById('brief-content').innerHTML='<p style="color:var(--red);font-family:var(--mono);font-size:11px;padding:14px 0">⚠ Unable to fetch brief from server. Ensure the API is running at '+API_BASE+'/api/brief</p>';
+  }
+  btn.disabled=false;btn.textContent='↻ Refresh Now';
+}
+function renderBrief(brief){
+  const html=brief.text.replace(/###\s+(.+)/g,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>');
+  document.getElementById('brief-content').innerHTML='<div class="brief-body"><p>'+html+'</p></div>';
+  const ts=brief.ts?new Date(brief.ts).toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})+' UTC':'—';
+  document.getElementById('brief-footer').textContent='Generated: '+ts+' · Cache slot: '+(brief.slot||'—')+':00 CET · Next: '+(brief.slot>=16?'Tomorrow 10:00':'16:00')+' CET';
+}
+function extractAndUpdateKPIs(text){
+  const tm=text.match(/TTF[^\d]*€?\s*(\d{2,3}(?:\.\d{1,2})?)\s*(?:\/MWh|MWh)/i);
+  const bm=text.match(/Brent[^\d]*\$?\s*(\d{2,3}(?:\.\d{1,2})?)\s*(?:\/bbl|bbl)/i);
+  if(tm){const el=document.getElementById('kv-ttf');if(el)el.textContent='€'+f2(tm[1])}
+  if(bm){const el=document.getElementById('kv-brent');if(el)el.textContent='$'+f2(bm[1])}
+  document.getElementById('kpi-updated').textContent='Updated: '+getCET().str;
+}
+async function manualRefresh(){const e=getCET();await fetchBrief('brief_'+DASH_ID+'_'+e.date+'_manual_'+Date.now(),null)}
+
+/* ─── FLOWS MAP — ENTSOG INTEGRATION ─── */
+
+/* Auto-generated European country paths — Mercator projection */
+const MAP_VW=960,MAP_VH=620;
+const COUNTRY_PATHS={
+  'NO':'M302.2,303.9L302.2,251.0L293.3,232.3L311.1,212.9L320.0,203.0L355.6,212.9L391.1,203.0L408.9,172.2L426.7,150.6L444.4,150.6L462.2,128.2L480.0,104.8L497.8,92.8L533.3,80.5L568.9,67.8L604.4,54.9L657.8,41.7L711.1,28.2L746.7,49.7L728.9,80.5L693.3,104.8L568.9,128.2L533.3,150.6L497.8,172.2L462.2,192.9L426.7,222.7L408.9,251.0L391.1,278.0L355.6,303.9L320.0,307.2Z',
+  'SE':'M408.9,286.8L426.7,286.8L444.4,303.9L462.2,336.7L480.0,328.7L497.8,320.5L533.3,269.2L542.2,232.3L524.4,203.0L533.3,172.2L551.1,150.6L568.9,128.2L604.4,150.6L640.0,128.2L640.0,161.5L604.4,192.9L568.9,212.9L542.2,222.7L515.6,251.0L497.8,286.8L480.0,295.4L462.2,312.2L426.7,336.7L417.8,312.2Z',
+  'FI':'M586.7,278.0L622.2,269.2L657.8,260.2L693.3,260.2L711.1,251.0L746.7,232.3L746.7,192.9L728.9,172.2L711.1,150.6L675.6,128.2L657.8,104.8L693.3,80.5L728.9,67.8L711.1,54.9L657.8,54.9L622.2,104.8L604.4,150.6L586.7,192.9L586.7,232.3Z',
+  'DK':'M355.6,352.5L355.6,328.7L373.3,320.5L391.1,312.2L400.0,320.5L426.7,336.7L435.6,344.6L426.7,352.5L391.1,352.5L373.3,352.5Z',
+  'EE':'M604.4,303.9L640.0,295.4L657.8,278.0L711.1,278.0L711.1,303.9L693.3,312.2L640.0,312.2L604.4,307.2Z',
+  'LV':'M586.7,323.8L604.4,312.2L640.0,312.2L693.3,312.2L711.1,320.5L711.1,336.7L693.3,336.7L640.0,328.7L604.4,328.7Z',
+  'LT':'M586.7,344.6L604.4,328.7L640.0,328.7L675.6,336.7L684.4,352.5L657.8,360.2L622.2,360.2L586.7,360.2Z',
+  'GB':'M115.6,426.0L160.0,419.0L195.6,411.9L240.0,404.8L240.0,390.3L222.2,382.9L204.4,375.4L195.6,360.2L177.8,344.6L160.0,336.7L124.4,320.5L115.6,303.9L151.1,295.4L124.4,286.8L160.0,303.9L177.8,312.2L142.2,328.7L124.4,344.6L151.1,360.2L133.3,382.9L124.4,397.6L133.3,411.9L115.6,426.0Z',
+  'IE':'M35.6,404.8L71.1,404.8L106.7,397.6L106.7,375.4L88.9,360.2L71.1,344.6L35.6,367.9L35.6,382.9L44.4,397.6Z',
+  'NL':'M275.6,404.8L284.4,397.6L293.3,382.9L311.1,375.4L337.8,375.4L337.8,397.6L320.0,404.8L302.2,404.8L284.4,404.8Z',
+  'BE':'M257.8,411.9L275.6,404.8L302.2,404.8L320.0,411.9L320.0,419.0L320.0,426.0L302.2,432.9L284.4,432.9L266.7,419.0Z',
+  'LU':'M314.7,432.9L328.9,432.9L328.9,426.0L314.7,426.0Z',
+  'DE':'M320.0,411.9L337.8,375.4L364.4,360.2L391.1,360.2L408.9,367.9L462.2,367.9L471.1,382.9L480.0,404.8L480.0,411.9L471.1,419.0L444.4,419.0L435.6,439.7L444.4,446.5L444.4,459.8L391.1,459.8L355.6,453.2L346.7,459.8L320.0,439.7L320.0,419.0Z',
+  'PL':'M462.2,367.9L497.8,360.2L551.1,360.2L568.9,360.2L622.2,360.2L640.0,367.9L640.0,397.6L640.0,411.9L622.2,419.0L604.4,432.9L551.1,432.9L533.3,432.9L480.0,411.9L471.1,390.3Z',
+  'CZ':'M435.6,439.7L444.4,419.0L471.1,419.0L480.0,411.9L506.7,419.0L533.3,432.9L533.3,439.7L515.6,446.5L497.8,446.5L462.2,446.5L444.4,446.5Z',
+  'SK':'M515.6,446.5L533.3,432.9L551.1,432.9L568.9,432.9L604.4,439.7L604.4,446.5L586.7,453.2L551.1,459.8L533.3,453.2Z',
+  'FR':'M195.6,517.0L213.3,517.0L266.7,517.0L275.6,510.9L293.3,510.9L320.0,517.0L346.7,504.7L337.8,492.2L320.0,479.4L320.0,466.4L311.1,453.2L284.4,439.7L257.8,411.9L231.1,419.0L195.6,432.9L177.8,446.5L142.2,453.2L133.3,459.8L177.8,466.4L195.6,479.4L195.6,504.7Z',
+  'CH':'M320.0,479.4L320.0,459.8L346.7,459.8L355.6,453.2L382.2,459.8L391.1,459.8L391.1,466.4L382.2,473.0L355.6,479.4L337.8,479.4Z',
+  'AT':'M391.1,466.4L391.1,459.8L444.4,459.8L444.4,446.5L462.2,446.5L497.8,446.5L515.6,446.5L515.6,453.2L497.8,466.4L480.0,466.4L462.2,473.0L444.4,473.0L426.7,466.4Z',
+  'HU':'M497.8,466.4L515.6,453.2L533.3,453.2L551.1,459.8L586.7,453.2L604.4,446.5L604.4,459.8L586.7,473.0L568.9,479.4L551.1,485.8L533.3,485.8L515.6,479.4L497.8,473.0Z',
+  'SI':'M453.3,473.0L462.2,473.0L480.0,466.4L497.8,473.0L497.8,479.4L480.0,485.8L462.2,485.8L453.3,485.8Z',
+  'HR':'M453.3,485.8L462.2,485.8L480.0,485.8L497.8,485.8L506.7,492.2L515.6,485.8L533.3,485.8L551.1,485.8L551.1,492.2L551.1,498.5L533.3,504.7L515.6,510.9L497.8,517.0L480.0,510.9L471.1,504.7L462.2,498.5L453.3,492.2Z',
+  'BA':'M488.9,510.9L497.8,517.0L515.6,510.9L533.3,504.7L551.1,498.5L560.0,504.7L551.1,510.9L542.2,517.0L515.6,517.0L497.8,510.9Z',
+  'RS':'M551.1,485.8L568.9,479.4L586.7,473.0L604.4,459.8L613.3,473.0L622.2,492.2L613.3,504.7L604.4,510.9L586.7,517.0L568.9,517.0L568.9,510.9L560.0,504.7L551.1,492.2Z',
+  'RO':'M604.4,453.2L622.2,453.2L640.0,446.5L675.6,446.5L711.1,453.2L728.9,459.8L737.8,473.0L728.9,485.8L728.9,504.7L720.0,504.7L693.3,504.7L675.6,504.7L657.8,510.9L622.2,504.7L604.4,504.7L604.4,510.9L613.3,504.7L604.4,498.5L586.7,492.2L604.4,479.4L604.4,466.4Z',
+  'MD':'M693.3,466.4L711.1,453.2L728.9,459.8L737.8,473.0L720.0,473.0L711.1,473.0L693.3,473.0Z',
+  'UA':'M640.0,397.6L657.8,397.6L693.3,397.6L746.7,397.6L800.0,397.6L853.3,411.9L888.9,426.0L924.4,432.9L924.4,453.2L906.7,466.4L888.9,473.0L871.1,479.4L853.3,479.4L835.6,473.0L817.8,473.0L800.0,479.4L764.4,479.4L746.7,479.4L728.9,485.8L728.9,473.0L711.1,453.2L675.6,446.5L640.0,446.5L622.2,446.5L604.4,439.7L604.4,432.9L622.2,419.0L640.0,411.9Z',
+  'BY':'M622.2,367.9L640.0,367.9L675.6,352.5L711.1,336.7L746.7,336.7L782.2,352.5L782.2,375.4L764.4,390.3L728.9,397.6L693.3,397.6L657.8,397.6L640.0,397.6L622.2,397.6L622.2,382.9Z',
+  'BG':'M604.4,510.9L613.3,504.7L622.2,504.7L657.8,510.9L675.6,504.7L693.3,504.7L711.1,510.9L720.0,517.0L711.1,523.1L693.3,529.1L675.6,535.1L640.0,535.1L622.2,535.1L604.4,529.1L604.4,517.0Z',
+  'MK':'M568.9,529.1L586.7,523.1L604.4,529.1L604.4,535.1L595.6,541.1L586.7,541.1L577.8,541.1L568.9,535.1Z',
+  'AL':'M551.1,529.1L560.0,529.1L568.9,529.1L568.9,535.1L577.8,541.1L568.9,547.0L568.9,552.8L560.0,558.6L551.1,552.8L551.1,541.1Z',
+  'ME':'M542.2,517.0L551.1,517.0L560.0,517.0L568.9,517.0L568.9,529.1L560.0,529.1L551.1,529.1L542.2,523.1Z',
+  'GR':'M568.9,552.8L586.7,547.0L604.4,535.1L622.2,535.1L640.0,535.1L657.8,541.1L675.6,535.1L675.6,547.0L640.0,552.8L622.2,558.6L622.2,570.1L604.4,575.8L604.4,581.5L595.6,587.1L604.4,592.6L622.2,587.1L640.0,581.5L657.8,575.8L675.6,564.4L675.6,575.8L640.0,598.2L622.2,598.2L604.4,592.6L586.7,587.1L586.7,575.8L568.9,570.1L568.9,558.6Z',
+  'TR':'M675.6,529.1L711.1,529.1L728.9,535.1L782.2,529.1L853.3,529.1L924.4,541.1L960.0,541.1L960.0,564.4L924.4,587.1L888.9,587.1L853.3,592.6L817.8,598.2L782.2,598.2L746.7,592.6L728.9,587.1L711.1,581.5L693.3,575.8L675.6,564.4L675.6,547.0L675.6,535.1Z',
+  'IT':'M328.9,504.7L346.7,504.7L355.6,498.5L391.1,498.5L426.7,504.7L453.3,504.7L462.2,517.0L471.1,529.1L488.9,535.1L497.8,541.1L506.7,552.8L515.6,558.6L515.6,570.1L497.8,575.8L497.8,581.5L488.9,575.8L480.0,570.1L471.1,575.8L444.4,570.1L435.6,575.8L417.8,581.5L426.7,570.1L408.9,558.6L400.0,552.8L391.1,529.1L382.2,523.1L373.3,504.7L355.6,498.5L346.7,504.7L337.8,498.5Z',
+  'ES':'M53.3,517.0L88.9,504.7L177.8,510.9L213.3,523.1L266.7,529.1L266.7,535.1L248.9,541.1L231.1,547.0L213.3,558.6L195.6,575.8L177.8,587.1L213.3,592.6L213.3,598.2L124.4,598.2L88.9,587.1L53.3,587.1L53.3,570.1L62.2,558.6L53.3,552.8L71.1,529.1L53.3,523.1Z',
+  'PT':'M53.3,587.1L88.9,587.1L88.9,570.1L88.9,564.4L80.0,552.8L71.1,541.1L71.1,529.1L53.3,523.1L53.3,541.1L53.3,558.6L62.2,575.8Z',
+  'DZ':'M177.8,609.2L213.3,598.2L266.7,587.1L302.2,587.1L355.6,587.1L373.3,587.1L355.6,609.2L302.2,620.0L248.9,620.0L213.3,620.0L177.8,614.6Z',
+  'LY':'M373.3,620.0L426.7,620.0L480.0,620.0L533.3,620.0L568.9,620.0L604.4,620.0L657.8,620.0L657.8,630.7L604.4,630.7L533.3,630.7L480.0,630.7L426.7,630.7L373.3,625.4Z',
+};
+
+/* Country centroids for labels and flow arrows — Mercator projected */
+const GEO={
+  'NO':{x:473.5,y:164.4,label:'Norway'},
+  'SE':{x:515.6,y:245.1,label:'Sweden'},
+  'FI':{x:669.9,y:170.4,label:'Finland'},
+  'DK':{x:392.9,y:337.3,label:'Denmark'},
+  'EE':{x:657.8,y:298.9,label:'Estonia'},
+  'LV':{x:653.8,y:323.5,label:'Latvia'},
+  'LT':{x:632.2,y:346.5,label:'Lithuania'},
+  'GB':{x:160.4,y:362.0,label:'UK'},
+  'IE':{x:66.2,y:381.7,label:'Ireland'},
+  'NL':{x:305.2,y:394.2,label:'Netherlands'},
+  'BE':{x:294.3,y:418.1,label:'Belgium'},
+  'LU':{x:321.8,y:429.4,label:'Luxembourg'},
+  'DE':{x:404.7,y:413.6,label:'Germany'},
+  'PL':{x:563.2,y:393.3,label:'Poland'},
+  'CZ':{x:484.0,y:433.4,label:'Czech Rep.'},
+  'SK':{x:561.0,y:444.2,label:'Slovakia'},
+  'FR':{x:247.2,y:476.2,label:'France'},
+  'CH':{x:358.2,y:467.0,label:'Switzerland'},
+  'AT':{x:459.5,y:459.3,label:'Austria'},
+  'HU':{x:549.7,y:466.8,label:'Hungary'},
+  'SI':{x:473.3,y:477.8,label:'Slovenia'},
+  'HR':{x:500.9,y:495.4,label:'Croatia'},
+  'BA':{x:525.3,y:510.2,label:'Bosnia'},
+  'RS':{x:584.6,y:493.9,label:'Serbia'},
+  'RO':{x:655.7,y:483.9,label:'Romania'},
+  'MD':{x:713.7,y:467.3,label:'Moldova'},
+  'UA':{x:756.8,y:444.6,label:'Ukraine'},
+  'BY':{x:692.1,y:375.0,label:'Belarus'},
+  'BG':{x:656.6,y:518.1,label:'Bulgaria'},
+  'MK':{x:586.7,y:534.3,label:'N. Macedonia'},
+  'AL':{x:562.7,y:541.6,label:'Albania'},
+  'ME':{x:555.6,y:522.3,label:'Montenegro'},
+  'GR':{x:621.2,y:567.1,label:'Greece'},
+  'TR':{x:788.4,y:562.2,label:'Turkey'},
+  'IT':{x:430.5,y:538.9,label:'Italy'},
+  'ES':{x:148.6,y:553.6,label:'Spain'},
+  'PT':{x:69.5,y:557.3,label:'Portugal'},
+  'DZ':{x:271.5,y:603.6,label:'Algeria'},
+  'LY':{x:516.9,y:624.5,label:'Libya'},
+  'RU':{x:940,y:150,label:'Russia'},
+  'AZ':{x:940,y:380,label:'Azerbaijan'},
+};
+
+/* Known major cross-border interconnection routes with typical flow data */
+const FLOW_ROUTES=[
+  /* Norwegian exports */
+  {from:'NO',to:'DE',name:'Europipe I & II',capacity:670,typical:580},
+  {from:'NO',to:'GB',name:'Langeled',capacity:700,typical:620},
+  {from:'NO',to:'BE',name:'Zeepipe',capacity:420,typical:340},
+  {from:'NO',to:'FR',name:'Franpipe',capacity:480,typical:360},
+  {from:'NO',to:'DK',name:'Tyra / Europipe',capacity:110,typical:45},
+  /* Baltic */
+  {from:'NO',to:'PL',name:'Baltic Pipe',capacity:274,typical:210},
+  {from:'LT',to:'LV',name:'Kiemėnai',capacity:70,typical:35},
+  {from:'LV',to:'EE',name:'Karksi (Balticconnector)',capacity:65,typical:20},
+  {from:'FI',to:'EE',name:'Balticconnector',capacity:80,typical:25},
+  /* Russia (reduced) */
+  {from:'RU',to:'TR',name:'TurkStream',capacity:430,typical:310},
+  {from:'RU',to:'UA',name:'Sudzha (transit)',capacity:110,typical:42},
+  {from:'UA',to:'SK',name:'Velké Kapušany',capacity:380,typical:40},
+  {from:'UA',to:'HU',name:'Beregdaróc',capacity:160,typical:28},
+  {from:'UA',to:'RO',name:'Isaccea (reverse)',capacity:100,typical:15},
+  {from:'UA',to:'PL',name:'Drozdowicze',capacity:60,typical:10},
+  {from:'BY',to:'PL',name:'Kondratki (Yamal)',capacity:330,typical:0},
+  {from:'RU',to:'FI',name:'Imatra (suspended)',capacity:200,typical:0},
+  /* TurkStream southward */
+  {from:'TR',to:'BG',name:'TurkStream → Bulgaria',capacity:200,typical:120},
+  {from:'BG',to:'RS',name:'BG–RS interconnector',capacity:130,typical:65},
+  {from:'BG',to:'GR',name:'IGB / Kulata',capacity:60,typical:28},
+  {from:'BG',to:'RO',name:'Giurgiu–Ruse reverse',capacity:30,typical:12},
+  {from:'RS',to:'HU',name:'Kiskundorozsma',capacity:100,typical:55},
+  /* Azerbaijan / SGC */
+  {from:'AZ',to:'TR',name:'TANAP',capacity:300,typical:160},
+  {from:'TR',to:'GR',name:'TAP (Kipoi)',capacity:120,typical:48},
+  {from:'GR',to:'IT',name:'TAP (Melendugno)',capacity:120,typical:48},
+  /* Algeria */
+  {from:'DZ',to:'IT',name:'Transmed (Tunisia)',capacity:900,typical:450},
+  {from:'DZ',to:'ES',name:'Medgaz',capacity:280,typical:210},
+  /* West/Central Europe */
+  {from:'NL',to:'DE',name:'GTS→Gasunie DE',capacity:540,typical:320},
+  {from:'NL',to:'BE',name:'Zelzate / s-Gravenvoeren',capacity:420,typical:250},
+  {from:'DE',to:'CZ',name:'Olbernhau / Brandov',capacity:470,typical:280},
+  {from:'DE',to:'AT',name:'Oberkappel',capacity:420,typical:240},
+  {from:'DE',to:'PL',name:'Mallnow',capacity:280,typical:90},
+  {from:'DE',to:'CH',name:'Wallbach',capacity:180,typical:80},
+  {from:'DE',to:'FR',name:'Obergailbach',capacity:380,typical:180},
+  {from:'DE',to:'NL',name:'Oude Statenzijl (reverse)',capacity:220,typical:40},
+  {from:'BE',to:'FR',name:'Blaregnies',capacity:320,typical:160},
+  {from:'BE',to:'GB',name:'IUK Bacton',capacity:220,typical:80},
+  {from:'FR',to:'ES',name:'Biriatou / Larrau',capacity:140,typical:45},
+  {from:'CZ',to:'SK',name:'Lanžhot',capacity:350,typical:160},
+  {from:'SK',to:'AT',name:'Baumgarten',capacity:480,typical:220},
+  {from:'SK',to:'HU',name:'Balassagyarmat',capacity:140,typical:50},
+  {from:'AT',to:'IT',name:'Tarvisio',capacity:320,typical:200},
+  {from:'AT',to:'HU',name:'Mosonmagyaróvár',capacity:120,typical:55},
+  {from:'AT',to:'SI',name:'Murfeld / Ceršak',capacity:50,typical:18},
+  {from:'HR',to:'HU',name:'Drávaszerda.',capacity:80,typical:35},
+  {from:'HR',to:'SI',name:'Rogatec',capacity:30,typical:10},
+  /* LNG implied flows (onshore from terminal) */
+  {from:'ES',to:'PT',name:'VIP Ibérico',capacity:100,typical:30},
+  {from:'GR',to:'BG',name:'Alexandroupolis → BG',capacity:60,typical:20},
+  {from:'GB',to:'IE',name:'Moffat interconnector',capacity:120,typical:52},
+  /* Italy internal south */
+  {from:'LY',to:'IT',name:'Greenstream (Libya)',capacity:280,typical:70},
+];
+
+let flowData = FLOW_ROUTES.map(r=>({...r,flow:r.typical}));
+let flowDataSource='baseline';
+
+/* ─── ENTSOG API FETCH ─── */
+async function fetchENTSOGFlows(){
+  const statusEl=document.getElementById('flowStatus');
+  const dateEl=document.getElementById('flowDate');
+  statusEl.className='flow-status loading';
+  statusEl.textContent='Fetching ENTSOG…';
+
+  const today=new Date();
+  const yesterday=new Date(today);yesterday.setDate(today.getDate()-1);
+  const twoDaysAgo=new Date(today);twoDaysAgo.setDate(today.getDate()-2);
+  const fmt=d=>d.toISOString().slice(0,10);
+
+  const ENTSOG_BASE='https://transparency.entsog.eu/api/v1';
+  const url=`${ENTSOG_BASE}/operationaldatas.json?indicator=Physical%20Flow&periodType=day&from=${fmt(twoDaysAgo)}&to=${fmt(yesterday)}&timezone=CET&limit=10000`;
+
+  try{
+    const res=await fetch(url,{signal:AbortSignal.timeout(30000)});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const json=await res.json();
+    const records=json.operationaldatas||json.operationalDatas||json;
+
+    if(!Array.isArray(records)||records.length===0)throw new Error('No data returned');
+
+    /* Build a lookup: aggregate flows by {fromCountry→toCountry} pair */
+    const pairFlows={};
+    records.forEach(rec=>{
+      if(!rec.value||rec.value<=0)return;
+      const opCtry=(rec.operatorCountryKey||rec.operatorCountry||'').toUpperCase();
+      const adjCtry=(rec.adjacentCountryKey||rec.adjacentCountry||rec.adjacentSystemsKey||'').toUpperCase();
+      const dir=(rec.directionKey||rec.direction||'').toLowerCase();
+      if(!opCtry||!adjCtry||opCtry===adjCtry)return;
+
+      let from_c,to_c;
+      if(dir.includes('entry')){from_c=adjCtry;to_c=opCtry}
+      else if(dir.includes('exit')){from_c=opCtry;to_c=adjCtry}
+      else return;
+
+      const key=from_c+'→'+to_c;
+      if(!pairFlows[key])pairFlows[key]={total:0,count:0};
+      pairFlows[key].total+=rec.value;
+      pairFlows[key].count++;
+    });
+
+    /* Map ENTSOG country codes to our GEO keys */
+    const codeMap={
+      'DE':'DE','FR':'FR','NL':'NL','BE':'BE','GB':'GB','UK':'GB','IE':'IE','LU':'LU',
+      'NO':'NO','SE':'SE','FI':'FI','DK':'DK','EE':'EE','LV':'LV','LT':'LT',
+      'PL':'PL','CZ':'CZ','AT':'AT','CH':'CH','SK':'SK','HU':'HU','SI':'SI',
+      'RO':'RO','BG':'BG','RS':'RS','MD':'MD','UA':'UA','BY':'BY',
+      'IT':'IT','ES':'ES','PT':'PT','GR':'GR','TR':'TR','HR':'HR',
+      'AL':'AL','MK':'MK','BA':'BA','ME':'ME','CY':'CY','MT':'MT',
+      'DZ':'DZ','LY':'LY','RU':'RU','AZ':'AZ',
+    };
+
+    /* Update flow data */
+    let matched=0;
+    flowData=FLOW_ROUTES.map(r=>{
+      const fromCode=r.from;const toCode=r.to;
+      /* Try direct match */
+      let best=null,bestVal=0;
+      Object.entries(pairFlows).forEach(([key,val])=>{
+        const [fc,tc]=key.split('→');
+        const mfc=codeMap[fc],mtc=codeMap[tc];
+        if((mfc===fromCode&&mtc===toCode)||(mfc===toCode&&mtc===fromCode)){
+          if(val.total>bestVal){bestVal=val.total;best=val;}
+        }
+      });
+      if(best){
+        matched++;
+        /* ENTSOG reports kWh/day — convert to GWh/day */
+        const gwh=best.total/1e6;
+        return{...r,flow:Math.round(gwh*10)/10,source:'entsog'};
+      }
+      return{...r,flow:r.typical,source:'baseline'};
+    });
+
+    const liveCount=flowData.filter(f=>f.source==='entsog').length;
+    flowDataSource=liveCount>5?'live':'partial';
+
+    dateEl.textContent=fmt(yesterday)+' (ENTSOG)';
+    statusEl.className='flow-status '+(liveCount>5?'live':'fallback');
+    statusEl.textContent=liveCount>5?`✓ LIVE · ${liveCount} routes matched`:`Partial · ${liveCount} routes from ENTSOG`;
+
+    renderFlowMap();
+    buildFlowTable();
+    buildNetFlowChart();
+    buildFlowStats();
+  }catch(err){
+    console.warn('ENTSOG direct fetch failed:',err.message,'— trying backend proxy…');
+    /* Fallback: try the backend API proxy */
+    try{
+      const proxyRes=await fetch(API_BASE+'/api/flows',{signal:AbortSignal.timeout(30000)});
+      if(proxyRes.ok){
+        const proxyData=await proxyRes.json();
+        if(proxyData.pair_flows&&proxyData.pair_flows.length>0){
+          /* Map backend pair_flows to our FLOW_ROUTES structure */
+          let proxyMatched=0;
+          flowData=FLOW_ROUTES.map(r=>{
+            const match=proxyData.pair_flows.find(p=>(p.operator_key===r.from||p.operator_key===r.to));
+            if(match){proxyMatched++;return{...r,flow:match.flow_gwh_d||r.typical,source:'backend'};}
+            return{...r,flow:r.typical,source:'baseline'};
+          });
+          flowDataSource=proxyMatched>5?'live':'partial';
+          dateEl.textContent=proxyData.date+' (backend proxy)';
+          statusEl.className='flow-status '+(proxyMatched>5?'live':'fallback');
+          statusEl.textContent=proxyMatched>5?`✓ Backend proxy · ${proxyMatched} routes`:`Partial · ${proxyMatched} via backend`;
+          renderFlowMap();buildFlowTable();buildNetFlowChart();buildFlowStats();
+          return;
+        }
+      }
+    }catch(e2){console.warn('Backend proxy also failed:',e2.message)}
+    /* Ultimate fallback: baseline data */
+    flowData=FLOW_ROUTES.map(r=>({...r,flow:r.typical,source:'baseline'}));
+    flowDataSource='baseline';
+    dateEl.textContent='March 2026 (baseline estimates)';
+    statusEl.className='flow-status fallback';
+    statusEl.textContent='⚠ Baseline data (ENTSOG + backend unavailable)';
+    renderFlowMap();
+    buildFlowTable();
+    buildNetFlowChart();
+    buildFlowStats();
+  }
+}
+
+/* ─── SVG MAP RENDERER ─── */
+function renderFlowMap(){
+  const wrap=document.getElementById('flowMapWrap');if(!wrap)return;
+  const W=MAP_VW,H=MAP_VH;
+  const minFilter=parseFloat(document.getElementById('flowMinFilter')?.value||0);
+  const filtered=flowData.filter(f=>f.flow>=minFilter&&f.flow>0);
+  const maxFlow=Math.max(...filtered.map(f=>f.flow),1);
+
+  /* Build SVG */
+  let svg=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="background:#0d1a2e">`;
+
+  /* Country shapes from accurate Mercator paths */
+  Object.entries(COUNTRY_PATHS).forEach(([code,d])=>{
+    svg+=`<path class="country-shape" d="${d}" data-country="${code}"/>`;
+  });
+
+  /* Country labels at centroids */
+  const external=new Set(['DZ','LY','RU','AZ']);
+  Object.entries(GEO).forEach(([code,g])=>{
+    if(g.x>W-30)return;/* off-map sources like RU, AZ: draw at right edge with arrows only */
+    const style=external.has(code)?'fill:var(--faint);font-size:6px':'';
+    svg+=`<text class="country-label" x="${g.x}" y="${g.y+4}" ${style?'style="'+style+'"':''}>${code}</text>`;
+  });
+
+  /* Arrow markers */
+  svg+=`<defs>`;
+  const markers={ah:'#3b8beb','ah-r':'#f05050','ah-t':'#2dd4a8','ah-a':'#f0a840','ah-p':'#a070f0'};
+  Object.entries(markers).forEach(([id,col])=>{
+    svg+=`<marker id="${id}" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4" fill="${col}" opacity=".8"/></marker>`;
+  });
+  svg+=`</defs>`;
+
+  /* Flow arrows */
+  filtered.forEach((f,idx)=>{
+    const fromG=GEO[f.from],toG=GEO[f.to];
+    if(!fromG||!toG)return;
+    const sw=Math.max(1.0,Math.min(5.5,(f.flow/maxFlow)*5.5));
+
+    /* Color by origin */
+    let col='#3b8beb',marker='ah';
+    if(f.from==='RU'||f.from==='BY'){col='#f05050';marker='ah-r'}
+    else if(f.from==='NO'){col='#2dd4a8';marker='ah-t'}
+    else if(f.from==='DZ'||f.from==='LY'){col='#f0a840';marker='ah-a'}
+    else if(f.from==='AZ'){col='#a070f0';marker='ah-p'}
+
+    /* For off-map origins (RU, AZ), start arrows from the right edge pointing into the target */
+    let fx=fromG.x,fy=fromG.y;
+    if(fx>W-30){/* off-map: enter from right edge */
+      fx=W-5;fy=toG.y+(fromG.y-toG.y)*0.3;
+    }
+    let tx=toG.x,ty=toG.y;
+    if(tx>W-30){fx=fromG.x;fy=fromG.y;tx=W-5;ty=fromG.y+(toG.y-fromG.y)*0.3;}
+
+    const dx=tx-fx,dy=ty-fy;
+    const len=Math.sqrt(dx*dx+dy*dy)||1;
+    const nx=-dy/len*2.5,ny=dx/len*2.5;
+    const x1=fx+dx*0.12,y1=fy+dy*0.12;
+    const x2=fx+dx*0.88,y2=fy+dy*0.88;
+    /* Curved control point */
+    const cx=(x1+x2)/2+ny*0.25,cy=(y1+y2)/2-nx*0.25;
+
+    svg+=`<path class="flow-arrow" d="M${x1.toFixed(1)},${y1.toFixed(1)} Q${cx.toFixed(1)},${cy.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}" fill="none" stroke="${col}" stroke-width="${sw.toFixed(1)}" marker-end="url(#${marker})" data-idx="${idx}" onmouseenter="showFlowTip(evt,${idx})" onmouseleave="hideFlowTip()"/>`;
+
+    /* Flow value label — only for significant flows, positioned at midpoint of curve */
+    if(f.flow>=80&&sw>=1.8){
+      const lx=cx,ly=cy-sw-2;
+      svg+=`<text class="flow-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" style="font-size:${Math.min(8,6+sw/2).toFixed(1)}px">${Math.round(f.flow)}</text>`;
+    }
+  });
+
+  svg+=`</svg>`;
+  wrap.innerHTML=svg;
+
+  /* Legend */
+  const leg=document.getElementById('flowLegend');if(leg){
+    leg.innerHTML=[
+      ['#2dd4a8','Norwegian pipeline'],['#f05050','Russian pipeline'],['#f0a840','North African pipeline'],
+      ['#a070f0','Azeri / SGC'],['#3b8beb','Intra-European / LNG'],
+    ].map(([c,l])=>`<div class="flow-legend-item"><div class="flow-legend-swatch" style="background:${c}"></div>${l}</div>`).join('')
+    +`<div class="flow-legend-item" style="margin-left:auto;font-size:8px;color:var(--faint)">Arrow width ∝ flow volume · Labels show GWh/day for flows ≥ 80</div>`;
+  }
+}
+
+function showFlowTip(evt,idx){
+  const f=flowData[idx];if(!f)return;
+  const tt=document.getElementById('flowTooltip');
+  const fromL=GEO[f.from]?.label||f.from;const toL=GEO[f.to]?.label||f.to;
+  tt.querySelector('.tt-route').textContent=fromL+' → '+toL;
+  tt.querySelector('.tt-val').textContent=f.flow.toFixed(1)+' GWh/day'+(f.capacity?' · Capacity: '+f.capacity+' GWh/d':'');
+  tt.querySelector('.tt-note').textContent=f.name+(f.source==='entsog'?' · ENTSOG live':' · Baseline estimate');
+  tt.style.display='block';
+  const rect=document.getElementById('flowMapWrap').getBoundingClientRect();
+  tt.style.left=Math.min(evt.clientX-rect.left+10,rect.width-200)+'px';
+  tt.style.top=(evt.clientY-rect.top-60)+'px';
+}
+function hideFlowTip(){document.getElementById('flowTooltip').style.display='none'}
+
+function buildFlowTable(){
+  const tb=document.getElementById('flowTableBody');if(!tb)return;tb.innerHTML='';
+  const sorted=[...flowData].filter(f=>f.flow>0).sort((a,b)=>b.flow-a.flow).slice(0,20);
+  sorted.forEach(f=>{
+    const fromL=GEO[f.from]?.label||f.from;const toL=GEO[f.to]?.label||f.to;
+    const util=f.capacity?(f.flow/f.capacity*100):0;
+    const utilCol=util>=80?'var(--red)':util>=50?'var(--amber)':'var(--green)';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><span class="cname" style="font-size:12px">${fromL}</span></td><td><span class="cname" style="font-size:12px">${toL}</span></td><td style="font-size:10px;color:var(--muted)">${f.name}</td><td class="num" style="font-weight:700;color:var(--blue)">${f.flow.toFixed(1)}</td><td>${f.capacity?`<div class="bw"><div class="btrack"><div class="bfill" style="width:${Math.min(100,util).toFixed(0)}%;background:${utilCol}"></div></div><span class="blbl" style="color:${utilCol}">${util.toFixed(0)}%</span></div>`:'<span style="color:var(--faint);font-size:9px">—</span>'}</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function buildNetFlowChart(){
+  const cv=document.getElementById('netFlowChart');if(!cv)return;
+  const W=cv.parentElement.offsetWidth-36;cv.width=W;cv.height=320;
+  const ctx=cv.getContext('2d');
+
+  /* Calculate net flow per country */
+  const netMap={};
+  flowData.forEach(f=>{
+    if(f.flow<=0)return;
+    const from=f.from,to=f.to;
+    netMap[from]=(netMap[from]||0)+f.flow;
+    netMap[to]=(netMap[to]||0)-f.flow;
+  });
+  /* Filter to European countries with significant flow, exclude external */
+  const external=new Set(['RU','BY','DZ','LY','AZ']);
+  const data=Object.entries(netMap)
+    .filter(([c,v])=>!external.has(c)&&GEO[c]&&Math.abs(v)>5)
+    .map(([c,v])=>({code:c,label:GEO[c]?.label||c,net:Math.round(v*10)/10}))
+    .sort((a,b)=>b.net-a.net);
+
+  const n=data.length;if(n===0)return;
+  const pad={t:20,r:10,b:48,l:80};
+  const cw=W-pad.l-pad.r,ch=320-pad.t-pad.b;
+  const maxAbs=Math.max(...data.map(d=>Math.abs(d.net)),1);
+  const bh=Math.min(16,ch/n-2);
+
+  ctx.clearRect(0,0,W,320);
+  const cx=pad.l+cw/2;/* zero line */
+  ctx.strokeStyle='rgba(30,58,95,.6)';ctx.lineWidth=1;ctx.setLineDash([3,4]);
+  ctx.beginPath();ctx.moveTo(cx,pad.t);ctx.lineTo(cx,pad.t+ch);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#4a6e94';ctx.font='8px DM Mono';ctx.textAlign='center';ctx.fillText('0',cx,pad.t-4);
+
+  data.forEach((d,i)=>{
+    const y=pad.t+i*(ch/n)+ch/(n*2)-bh/2;
+    const barW=(d.net/maxAbs)*(cw/2);
+    const col=d.net>=0?'#2dd4a8':'#f05050';
+    const gr=ctx.createLinearGradient(d.net>=0?cx:cx+barW,0,d.net>=0?cx+barW:cx,0);
+    gr.addColorStop(0,h2r(col,.8));gr.addColorStop(1,h2r(col,.25));
+    ctx.fillStyle=gr;
+    ctx.fillRect(d.net>=0?cx:cx+barW,y,Math.abs(barW),bh);
+    /* Label */
+    ctx.fillStyle='#7a9cc0';ctx.font='9px Syne';ctx.textAlign='right';
+    ctx.fillText(d.label,pad.l-4,y+bh/2+3);
+    /* Value */
+    ctx.fillStyle=col;ctx.font='bold 8px DM Mono';
+    ctx.textAlign=d.net>=0?'left':'right';
+    ctx.fillText((d.net>=0?'+':'')+d.net.toFixed(0),d.net>=0?cx+barW+4:cx+barW-4,y+bh/2+3);
+  });
+}
+
+function buildFlowStats(){
+  const el=document.getElementById('flowStats');if(!el)return;
+  const totalFlow=flowData.reduce((s,f)=>s+f.flow,0);
+  const avgUtil=flowData.filter(f=>f.capacity&&f.flow>0).reduce((s,f)=>({sum:s.sum+f.flow/f.capacity,n:s.n+1}),{sum:0,n:0});
+  const russianFlow=flowData.filter(f=>f.from==='RU'||f.from==='BY').reduce((s,f)=>s+f.flow,0);
+  const norwegianFlow=flowData.filter(f=>f.from==='NO').reduce((s,f)=>s+f.flow,0);
+  const lngRelated=flowData.filter(f=>f.from==='DZ'||f.from==='LY').reduce((s,f)=>s+f.flow,0);
+  const haltedRoutes=flowData.filter(f=>f.flow===0&&f.typical>0).length;
+
+  el.innerHTML=[
+    {l:'Total Cross-Border Flow',v:totalFlow.toFixed(0)+' GWh/d',s:flowDataSource==='live'?'ENTSOG live':'Baseline estimate'},
+    {l:'Norwegian Exports',v:norwegianFlow.toFixed(0)+' GWh/d',s:(norwegianFlow/totalFlow*100).toFixed(1)+'% of total'},
+    {l:'Russian Pipeline',v:russianFlow.toFixed(0)+' GWh/d',s:'TurkStream + transit'},
+    {l:'North Africa Pipeline',v:lngRelated.toFixed(0)+' GWh/d',s:'Algeria + Libya'},
+    {l:'Avg. Utilization',v:(avgUtil.n>0?(avgUtil.sum/avgUtil.n*100).toFixed(1):'—')+'%',s:avgUtil.n+' routes with capacity data'},
+    {l:'Halted / Zero-Flow Routes',v:haltedRoutes+'',s:'Suspended or sanctioned'},
+  ].map(s=>`<div class="flow-stat"><div class="flow-stat-label">${s.l}</div><div class="flow-stat-value">${s.v}</div><div class="flow-stat-sub">${s.s}</div></div>`).join('');
+}
+
+function initFlows(){
+  fetchENTSOGFlows();
+}
+
+/* ─── TAB ROUTER ─── */
+const RENDER={
+  overview:()=>{buildRegionFilter();buildTable();buildPC();buildRus()},
+  supply:()=>{buildDonut();buildRoutes();buildStack()},
+  sdyn:()=>{buildTTF();buildGap();buildCostTable()},
+  storage:()=>{buildGauges();buildStorTraj();buildInfra();buildRefill()},
+  scenarios:()=>{buildScenCards();buildScTTF();buildScStor();buildImpact()},
+  flows:()=>initFlows(),
+  brief:()=>initBrief(),
+};
+function showTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');
+  setTimeout(()=>RENDER[id]&&RENDER[id](),40);
+}
+window.addEventListener('load',()=>{buildRegionFilter();buildTable();setTimeout(()=>RENDER.overview(),60)});
+window.addEventListener('resize',()=>{const a=document.querySelector('.tab-panel.active');if(a){const id=a.id.replace('tab-','');RENDER[id]&&RENDER[id]()}});
+</script>
+</body>
+</html>
