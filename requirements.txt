@@ -1,0 +1,38 @@
+# Energy Focus Platform — Dependencies
+# Install: pip install -r requirements.txt
+
+# Core
+pandas>=2.0
+numpy>=1.24
+requests>=2.31
+
+# Database
+duckdb>=0.10
+
+# API Server
+fastapi>=0.109
+uvicorn[standard]>=0.27
+
+# Visualization & Dashboard (Streamlit — optional, for dev)
+streamlit>=1.30
+plotly>=5.18
+
+# Data Sources
+yfinance>=0.2.30        # Oil + TTF futures (no API key required)
+python-dotenv>=1.0       # .env file support
+
+# Scheduling
+apscheduler>=3.10
+
+# Analytics
+statsmodels>=0.14        # OLS trendlines in Plotly
+scipy>=1.11
+
+# Optional: ENTSO-E Python client (nicer API wrapper)
+# entsoe-py>=0.6
+
+# Optional: GIE Python client
+# gie-py>=0.2
+
+# Optional: ENTSO-G Python client
+# entsog-py>=0.5
